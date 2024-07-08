@@ -1,84 +1,67 @@
-# Before you start
-## About this challenge
-We have prepared a simple app that needs improvement, and we need your help!
+# Fact App Android Project
 
-### Description and Objectives
-While the provided [TODO](#todo) and [Methodology](#methodology) might seem detailed, they are not meant to constrain you. 
+![Project Logo](https://example.com/logo.png)
 
-The purpose of this test is to assess your understanding, skills and experience by completing [TODO](#todo) tasks.
+## :page_facing_up: Description
 
-### You can ignore the Methodology 👍
-Please follow the [TODO](#todo) stated below, including [Tech stack](#tech-stack). 
+This app shows a cat fact from fact free api.
 
-On the other hand, you don't need to follow the [Methodology](#methodology) strictly. Please feel free to leverage your knowledge and creativity to approach the task and enhance the app's efficiency and effectiveness in your own unique way. 
+## :rocket: Features
 
-We would love for you to ask us questions beforehand and discuss further in the interview about your approach 🙌
+- :white_check_mark: Task creation and management
+- :bell: Notifications and reminders
+- :chart_with_upwards_trend: Progress tracking and analytics
+- :memo: Note-taking functionality
+- :lock: Secure login and authentication
 
-### Time
-There is no specific time limit for this task. You can take your time. Please take it easy ✌🏻
+## :construction: Installation
 
-# Fact app
-This app shows a cat fact from [fact free api](https://catfact.ninja/#/).  
+To get a local copy up and running follow these simple steps.
 
-![Screenshot](./fact_app.png)
+### Prerequisites
 
-It works, but does not satisfy the [TODO](#todo) below, so please implement them!
+- Android Studio (version 4.0 or later)
+- Java Development Kit (JDK) (version 8 or later)
 
-If you still have time after that, please check & try *[Optional](#optional)*.
+### Installation Steps
 
-## TODO
-### Tech stack
-| Topic                   | Tech stack       |
-|-------------------------|------------------|
-| Language                | Kotlin           |
-| Asynchronous processing | Coroutine & Flow |
-| UI                      | Jetpack Compose  |
+1. Clone the repository
+   ```sh
+   git clone https://github.com/draconra/fact-app.git
 
-### UI and features
-#### Home screen (Existing screen. Please add features below)
-- Save the latest cat fact to local storage, and show it when a user relaunches the app.
-- Show the (character) `length` of a fact only when the length is **greater than 100**.
-  - `length` is contained in the fact response data.
-  - The place to show the length is not specified. You can place it anywhere.
-- Show the text "Multiple cats!" when the fact contains the word cats.
-  - No context check is required. Simply finding the word cats is fine
-- Unit testing
-  - You can decide which components or logic should be tested
+2. Open the project in Android Studio
+      - Open Android Studio
+      - Click on File -> Open
+      - Select the cloned repository folder
 
-#### A new screen
-- Add 1 more screen which you think is good to have
-- Any content is fine. Below are some examples for your reference
-  - Fact history (show the fact list the user has seen)
-  - Fact search (search cat fact(s) by keyword, length, etc)
-- Unit testing
-  - You can decide which components or logic should be tested
+3. Sync the project with Gradle files
+      - Click on Sync Project with Gradle Files in the toolbar
 
-## Methodology
-Below is our standard approach from Job Description, sharing for your reference 🙏
-- MVVM
-- [Room](https://developer.android.com/training/data-storage/room) and/or [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) for local data
-- Dependency injection ([Hilt](https://developer.android.com/training/dependency-injection/hilt-android))
-- [Modularization](https://developer.android.com/topic/modularization)
-- [Material Design](https://m3.material.io/)
+4. Build the project
+      - Click on `Build -> Make Project`
+   
+5. Run the project
+      - Click on `Run -> Run 'app'`
 
-## Optional
-### UI and features
-- (Design) Add the `Top app bar` and update the design of other components as you want 🏰
-- (Future growth) Add another `New feature or tool` which you think is better to have 💪
+:mag_right: Usage
+Follow these steps to use the app:
 
-### Bonus (even more)
-- (Testing) Use [JUnit5](https://github.com/mannodermaus/android-junit5) and add `fake` or `mockk`
-- (Testing) UI tests ✅
-- (Gradle) Migrate to [version catalogs](https://developer.android.com/build/migrate-to-catalogs) 📗
-- (Future growth) Add `Domain layer` 🚴‍️
+:wrench: Configuration
+To configure the app:
 
-# How to submit?
-Please 
-- Click **Use this template** button on the top right of this page
-- Click **Create a new repository** item from the drop-down list
-- Create a new repository under your own GitHub account
-- Create a pull request there
-- Send us
-  - the pull request's link if your new repository is **public**
-  - an invitation if your new repository is **private**
-    - Please ask our HR team for our account info in that case  
+Customize the UI by modifying the styles and themes in res/values/styles.xml.
+
+:handshake: Contributing
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/amazing-feature`)
+3. Commit your Changes (`git commit -m 'add: some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+:book: License
+Distributed under the MIT License. See `LICENSE` for more information.
+
+:mailbox_with_mail: Contact
+Mohamad Aditya Sumardi - @draconra - aditya.sumardi@gmail.com
