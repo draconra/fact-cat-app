@@ -26,7 +26,12 @@ android {
 
     buildTypes {
         release {
+            isMinifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+        debug {
             isMinifyEnabled = false
+            isDebuggable = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
@@ -36,6 +41,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = "17"
+        freeCompilerArgs = listOf("-Xjvm-default=all")
     }
     buildFeatures {
         compose = true
@@ -72,6 +78,7 @@ protobuf {
 dependencies {
     implementation(libs.coreKtx)
     implementation(libs.lifecycleRuntime)
+    implementation(libs.liveDataRuntime)
     implementation(libs.activityCompose)
     implementation(libs.composeUi)
     implementation(libs.composeUiToolingPreview)
