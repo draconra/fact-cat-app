@@ -54,6 +54,24 @@ jobs:
       - name: Run unit tests
         run: ./gradlew test
 
+      - name: Download emulator
+        run: sdkmanager "system-images;android-30;google_apis;x86_64"
+
+      - name: Create Android emulator
+        run: echo "no" | avdmanager create avd -n test -k "system-images;android-30;google_apis;x86_64" --force
+
+      - name: Start emulator
+        run: |
+          nohup emulator -avd test -no-snapshot-save -no-window -gpu swiftshader_indirect -no-boot-anim -noaudio -no-snapshot &
+
+      - name: Wait for emulator to boot
+        run: |
+          adb wait-for-device
+          adb shell settings put global window_animation_scale 0 &
+          adb shell settings put global transition_animation_scale 0 &
+          adb shell settings put global animator_duration_scale 0 &
+          adb shell input keyevent 82 &
+
       - name: Run Android Instrumentation Tests
-        run: ./gradlew connectedAndroidTest
+        run: ./gradlew connectedDebugAndroidTest
         if: always()  # Ensure this runs even if the previous step fails
