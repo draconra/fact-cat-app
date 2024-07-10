@@ -2,7 +2,7 @@
 kotlin = "1.9.24"
 agp = "8.4.0"
 hilt = "2.51.1"
-protobuf = "3.25.2"
+protobuf = "3.25.3"
 protobufPlugin = "0.9.4"
 composeCompiler = "1.5.14"
 composeUi = "1.6.8"
