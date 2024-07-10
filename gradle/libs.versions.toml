@@ -37,7 +37,8 @@ material3 = { module = "androidx.compose.material3:material3", version.ref = "ma
 datastorePreferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
 datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
 hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
-hiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version = "2.51.1" }
+hiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+hiltNavigation = { module = "androidx.hilt:hilt-navigation-compose", version = "1.2.0" }
 protobufKotlinLite = { module = "com.google.protobuf:protobuf-kotlin-lite", version.ref = "protobuf" }
 kotlinxSerializationJson = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serializationJson" }
 retrofitConverter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofitConverter" }

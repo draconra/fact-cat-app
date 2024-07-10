@@ -9,6 +9,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -19,15 +20,25 @@ private val Context.dataStore by preferencesDataStore(name = "settings")
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DataStoreModule {
+object AppModule {
 
     @Provides
     @Singleton
-    fun provideDataStore(context: Context): DataStore<Preferences> = context.dataStore
+    fun provideDataStore(@ApplicationContext context: Context): DataStore<Preferences> = context.dataStore
 
     @Provides
     @Singleton
     fun provideLastFactKey(): Preferences.Key<String> = stringPreferencesKey("last_fact")
+
+    @Provides
+    @Singleton
+    fun provideDataStoreRepository(dataStore: DataStore<Preferences>, lastFactKey: Preferences.Key<String>): DataStoreRepository {
+        return DataStoreRepository(dataStore, lastFactKey)
+    }
+
+    @Provides
+    @Singleton
+    fun provideContext(@ApplicationContext context: Context): Context = context
 }
 
 class DataStoreRepository @Inject constructor(
