@@ -16,12 +16,20 @@ espresso = "3.5.1"
 junitExt = "1.1.5"
 coreKtx = "1.13.1"
 lifecycleRuntime = "2.8.0"
+liveDataRuntime = "1.4.3"
 activityCompose = "1.9.0"
 serializationJson = "1.5.1"
+mockk = "1.12.0"
+junitJupiter = "5.7.0"
+coroutinesTest = "1.6.0"
+junitVintage = "5.7.0"
+robolectric = "4.7.3"
+core = "1.44.0"
 
 [libraries]
 coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 lifecycleRuntime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntime" }
+liveDataRuntime = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "liveDataRuntime"}
 activityCompose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 composeUi = { module = "androidx.compose.ui:ui", version.ref = "composeUi" }
 composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "composeUi" }
@@ -29,7 +37,7 @@ material3 = { module = "androidx.compose.material3:material3", version.ref = "ma
 datastorePreferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
 datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
 hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
-hiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version = "2.44.2" }
+hiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version = "2.51.1" }
 protobufKotlinLite = { module = "com.google.protobuf:protobuf-kotlin-lite", version.ref = "protobuf" }
 kotlinxSerializationJson = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serializationJson" }
 retrofitConverter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofitConverter" }
@@ -41,12 +49,19 @@ espressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = 
 composeUiTestJunit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "composeUi" }
 composeUiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "composeUi" }
 composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "composeUi" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+junitJupiterApi = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
+junitJupiterEngine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiter" }
+coreTesting = { module = "android.arch.core:core-testing", version.ref = "datastore"}
+coroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTest" }
+junitVintage = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "junitVintage" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+core = { group = "com.google.ar", name = "core", version.ref = "core" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
