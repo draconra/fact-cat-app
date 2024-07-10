@@ -86,21 +86,31 @@ dependencies {
     implementation(libs.datastorePreferences)
     implementation(libs.datastore)
     implementation(libs.hiltAndroid)
+    implementation(libs.core)
     kapt(libs.hiltAndroidCompiler)
     implementation(libs.protobufKotlinLite)
-
     implementation(libs.kotlinxSerializationJson)
     implementation(libs.retrofitConverter)
-
     implementation(libs.okhttp)
     implementation(libs.retrofit)
-
     testImplementation(libs.junit)
+    testImplementation(libs.junitJupiterApi)
+    testImplementation(libs.mockk)
+    testRuntimeOnly(libs.junitJupiterEngine)
     androidTestImplementation(libs.junitExt)
     androidTestImplementation(libs.espressoCore)
     androidTestImplementation(libs.composeUiTestJunit4)
+    androidTestImplementation(libs.coreTesting)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.coreTesting)
+    testImplementation(libs.coroutinesTest)
+    testRuntimeOnly(libs.junitVintage)
     debugImplementation(libs.composeUiTooling)
     debugImplementation(libs.composeUiTestManifest)
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
 
 kapt {

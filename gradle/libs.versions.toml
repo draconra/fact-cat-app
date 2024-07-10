@@ -19,6 +19,12 @@ lifecycleRuntime = "2.8.0"
 liveDataRuntime = "1.4.3"
 activityCompose = "1.9.0"
 serializationJson = "1.5.1"
+mockk = "1.12.0"
+junitJupiter = "5.7.0"
+coroutinesTest = "1.6.0"
+junitVintage = "5.7.0"
+robolectric = "4.7.3"
+core = "1.44.0"
 
 [libraries]
 coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
@@ -43,12 +49,19 @@ espressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = 
 composeUiTestJunit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "composeUi" }
 composeUiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "composeUi" }
 composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "composeUi" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+junitJupiterApi = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
+junitJupiterEngine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiter" }
+coreTesting = { module = "android.arch.core:core-testing", version.ref = "datastore"}
+coroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTest" }
+junitVintage = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "junitVintage" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+core = { group = "com.google.ar", name = "core", version.ref = "core" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
