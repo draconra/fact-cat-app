@@ -1,16 +1,36 @@
 package jp.speakbuddy.edisonandroidexercise.ui.fact
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import jp.speakbuddy.edisonandroidexercise.network.FactServiceProvider
-import kotlinx.coroutines.runBlocking
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import jp.speakbuddy.edisonandroidexercise.network.FactService
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FactViewModel : ViewModel() {
-    fun updateFact(completion: () -> Unit): String =
-        runBlocking {
+@HiltViewModel
+open class FactViewModel @Inject constructor(
+    private val factService: FactService?
+) : ViewModel() {
+
+    protected val _fact = MutableLiveData<String>()
+    val fact: LiveData<String> = _fact
+
+    fun updateFact() {
+        viewModelScope.launch {
             try {
-                FactServiceProvider.provide().getFact().fact
+                val newFact = factService?.getFact()?.fact ?: "Preview Fact"
+                _fact.value = newFact
             } catch (e: Throwable) {
-                "something went wrong. error = ${e.message}"
-            }.also { completion() }
+                _fact.value = "something went wrong. error = ${e.message}"
+            }
         }
+    }
+
+    constructor() : this(null) {
+        _fact.value = "Preview Fact"
+    }
 }
+
+

@@ -11,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -22,8 +23,10 @@ import jp.speakbuddy.edisonandroidexercise.ui.theme.EdisonAndroidExerciseTheme
 
 @Composable
 fun FactScreen(
-    viewModel: FactViewModel
+    viewModel: FactViewModel = FactViewModel()
 ) {
+    val fact by viewModel.fact.observeAsState("")
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -35,8 +38,6 @@ fun FactScreen(
             alignment = Alignment.CenterVertically
         )
     ) {
-        var fact by remember { mutableStateOf("") }
-
         Text(
             text = "Fact",
             style = MaterialTheme.typography.titleLarge
@@ -47,20 +48,17 @@ fun FactScreen(
             style = MaterialTheme.typography.bodyLarge
         )
 
-        val onClick = {
-            fact = viewModel.updateFact { print("done") }
-        }
-
-        Button(onClick = onClick) {
+        Button(onClick = { viewModel.updateFact() }) {
             Text(text = "Update fact")
         }
     }
 }
 
-@Preview
 @Composable
+@Preview
 private fun FactScreenPreview() {
+    val mockViewModel = FactViewModel()
     EdisonAndroidExerciseTheme {
-        FactScreen(viewModel = FactViewModel())
+        FactScreen(viewModel = mockViewModel)
     }
 }
