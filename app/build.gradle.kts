@@ -86,6 +86,7 @@ dependencies {
     implementation(libs.datastorePreferences)
     implementation(libs.datastore)
     implementation(libs.hiltAndroid)
+    implementation(libs.hiltNavigation)
     implementation(libs.core)
     kapt(libs.hiltAndroidCompiler)
     implementation(libs.protobufKotlinLite)

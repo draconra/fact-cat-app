@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Edison Android Exercise</string>
+    <string name="app_name">Fact Cat App</string>
+    <string name="fact">Fact</string>
+    <string name="update_fact">Update fact</string>
+    <string name="no_fact_available">No fact available</string>
+    <string name="preview_fact">Preview Fact</string>
+    <string name="error_message">something went wrong. error = %1$s</string>
 </resources>

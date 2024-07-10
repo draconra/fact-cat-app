@@ -1,13 +1,26 @@
 package jp.speakbuddy.edisonandroidexercise.ui
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
-import io.mockk.*
+import io.mockk.Runs
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.just
+import io.mockk.mockk
+import io.mockk.unmockkAll
+import jp.speakbuddy.edisonandroidexercise.di.DataStoreRepository
 import jp.speakbuddy.edisonandroidexercise.network.FactResponse
 import jp.speakbuddy.edisonandroidexercise.network.FactService
 import jp.speakbuddy.edisonandroidexercise.ui.fact.FactViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
+import org.junit.After
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -15,51 +28,73 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
-@ExperimentalCoroutinesApi
+@OptIn(ExperimentalCoroutinesApi::class)
 @RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE)
+@Config(manifest=Config.NONE)
 class FactViewModelTest {
 
     @get:Rule
-    val instantExecutorRule = InstantTaskExecutorRule()
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var factService: FactService
-    private lateinit var observer: Observer<String>
+    private val factService: FactService = mockk()
+    private val dataStoreRepository: DataStoreRepository = mockk()
+
     private lateinit var viewModel: FactViewModel
+
+    private val testDispatcher = UnconfinedTestDispatcher()
 
     @Before
     fun setup() {
-        factService = mockk()
-        observer = mockk(relaxed = true)
-        viewModel = FactViewModel(factService)
-        viewModel.fact.observeForever(observer)
+        Dispatchers.setMain(testDispatcher)
+
+        coEvery { dataStoreRepository.lastFact } returns flowOf("Stored Fact")
+
+        viewModel = FactViewModel(factService, dataStoreRepository)
+    }
+
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
+        unmockkAll()
     }
 
     @Test
-    fun `updateFact should post new fact when factService returns fact`() = runBlockingTest {
-        val expectedFact = "Test Fact"
-        coEvery { factService.getFact() } returns FactResponse(fact = expectedFact, length = 100)
+    fun `initial fact is retrieved from DataStore`() = runTest {
+        val expectedFact = "Stored Fact"
+        coEvery { dataStoreRepository.lastFact } returns flowOf(expectedFact)
+
+        viewModel = FactViewModel(factService, dataStoreRepository)
+
+        advanceUntilIdle()
+
+        Assert.assertEquals(expectedFact, viewModel.fact.getOrAwaitValue())
+    }
+
+    @Test
+    fun `updateFact updates fact and saves it to DataStore`() = runTest {
+        val newFact = "New Fact"
+        coEvery { factService.getFact() } returns FactResponse(newFact, newFact.length)
+        coEvery { dataStoreRepository.saveLastFact(newFact) } just Runs
 
         viewModel.updateFact()
 
-        coVerify { observer.onChanged(expectedFact) }
+        advanceUntilIdle()
+
+        Assert.assertEquals(newFact, viewModel.fact.getOrAwaitValue())
+        coVerify { dataStoreRepository.saveLastFact(newFact) }
     }
 
+
     @Test
-    fun `updateFact should post error message when factService throws exception`() = runBlockingTest {
-        val exceptionMessage = "Network error"
-        coEvery { factService.getFact() } throws RuntimeException(exceptionMessage)
+    fun `updateFact sets error message when service fails`() = runTest {
+        val errorMessage = "Service Error"
+        coEvery { factService.getFact() } throws RuntimeException(errorMessage)
 
         viewModel.updateFact()
 
-        coVerify { observer.onChanged("something went wrong. error = $exceptionMessage") }
-    }
+        advanceUntilIdle()
 
-    @Test
-    fun `init should post Preview Fact when factService is null`() {
-        val defaultViewModel = FactViewModel()
-        defaultViewModel.fact.observeForever(observer)
-
-        verify { observer.onChanged("Preview Fact") }
+        val expectedErrorMessage = "Something went wrong. Error: $errorMessage"
+        Assert.assertEquals(expectedErrorMessage, viewModel.fact.getOrAwaitValue())
     }
 }
