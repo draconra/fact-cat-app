@@ -27,6 +27,7 @@ junitVintage = "5.10.3"
 robolectric = "4.13"
 core = "1.44.0"
 navigationCompose = "2.7.7"
+chucker = "3.5.2"
 
 [libraries]
 coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
@@ -63,6 +64,8 @@ core = { group = "com.google.ar", name = "core", version.ref = "core" }
 navigationCompose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 foundation = { module = "androidx.compose.foundation:foundation", version.ref = "composeUi" }
 material = { module = "androidx.compose.material:material", version.ref = "composeUi" }
+chucker = { module = "com.github.chuckerteam.chucker:library", version.ref = "chucker" }
+chuckerNoOp = { module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "chucker" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

@@ -97,6 +97,7 @@ dependencies {
     implementation(libs.retrofitConverter)
     implementation(libs.okhttp)
     implementation(libs.retrofit)
+    implementation(libs.chucker)
     testImplementation(libs.junit)
     testImplementation(libs.junitJupiterApi)
     testImplementation(libs.mockk)
@@ -111,6 +112,8 @@ dependencies {
     testRuntimeOnly(libs.junitVintage)
     debugImplementation(libs.composeUiTooling)
     debugImplementation(libs.composeUiTestManifest)
+    debugImplementation(libs.chucker)
+    releaseImplementation(libs.chuckerNoOp)
 }
 
 tasks.withType<Test> {
