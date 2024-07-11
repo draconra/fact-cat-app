@@ -9,4 +9,5 @@
     <string name="history">History</string>
     <string name="about">About</string>
     <string name="search">Search</string>
+    <string name="fact_length">Length: %d</string>
 </resources>

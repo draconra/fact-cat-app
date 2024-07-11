@@ -86,6 +86,7 @@ dependencies {
     implementation(libs.navigationCompose)
     implementation(libs.foundation)
     implementation(libs.material)
+    implementation(libs.lottie)
     implementation(libs.datastorePreferences)
     implementation(libs.datastore)
     implementation(libs.hiltAndroid)

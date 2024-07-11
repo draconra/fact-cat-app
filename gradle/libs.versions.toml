@@ -28,6 +28,7 @@ robolectric = "4.13"
 core = "1.44.0"
 navigationCompose = "2.7.7"
 chucker = "3.5.2"
+lottie = "5.2.0"
 
 [libraries]
 coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
@@ -66,6 +67,7 @@ foundation = { module = "androidx.compose.foundation:foundation", version.ref = 
 material = { module = "androidx.compose.material:material", version.ref = "composeUi" }
 chucker = { module = "com.github.chuckerteam.chucker:library", version.ref = "chucker" }
 chuckerNoOp = { module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "chucker" }
+lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

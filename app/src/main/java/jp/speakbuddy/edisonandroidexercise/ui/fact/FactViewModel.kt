@@ -20,6 +20,9 @@ open class FactViewModel @Inject constructor(
     private val _fact = MutableLiveData<String>()
     val fact: LiveData<String> = _fact
 
+    private val _length = MutableLiveData<Int>()
+    val length: LiveData<Int> = _length
+
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> = _loading
 
@@ -38,6 +41,7 @@ open class FactViewModel @Inject constructor(
             try {
                 val newFact = factService?.getFact()?.fact ?: "Preview Fact"
                 _fact.value = newFact
+                _length.value = factService?.getFact()?.fact?.length ?: 0
                 dataStoreRepository?.saveLastFact(newFact)
             } catch (e: Throwable) {
                 _fact.value = "Something went wrong. Error: ${e.message}"
