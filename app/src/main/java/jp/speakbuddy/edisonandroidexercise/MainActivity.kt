@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
 import jp.speakbuddy.edisonandroidexercise.ui.fact.FactScreen
 import jp.speakbuddy.edisonandroidexercise.ui.fact.FactViewModel
+import jp.speakbuddy.edisonandroidexercise.ui.home.HomeScreen
 import jp.speakbuddy.edisonandroidexercise.ui.theme.EdisonAndroidExerciseTheme
 
 @AndroidEntryPoint
@@ -25,7 +26,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    FactScreen(viewModel = viewModel)
+                    HomeScreen(viewModel = viewModel)
                 }
             }
         }
