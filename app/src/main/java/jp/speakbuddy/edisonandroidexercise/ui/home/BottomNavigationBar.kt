@@ -6,15 +6,19 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import jp.speakbuddy.edisonandroidexercise.R
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
+    val historyIcon = ImageVector.vectorResource(id = R.drawable.ic_history)
     val items = listOf(
         NavigationItem.Home,
-        NavigationItem.History,
+        NavigationItem.History(historyIcon),
         NavigationItem.About
     )
     BottomNavigation {

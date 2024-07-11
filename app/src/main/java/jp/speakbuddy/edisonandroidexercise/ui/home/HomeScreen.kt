@@ -13,6 +13,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -40,9 +42,10 @@ fun HomeScreen(viewModel: FactViewModel) {
             BottomNavigationBar(navController = navController)
         }
     ) { innerPadding ->
+        val historyIcon = ImageVector.vectorResource(id = R.drawable.ic_history)
         NavHost(navController, startDestination = NavigationItem.Home.route, Modifier.padding(innerPadding)) {
             composable(NavigationItem.Home.route) { FactScreen(viewModel = viewModel) }
-            composable(NavigationItem.History.route) {/*TODO Add History Screen in the next PR*/}
+            composable(NavigationItem.History(historyIcon).route) {/*TODO Add History Screen in the next PR*/}
             composable(NavigationItem.About.route) {/*TODO Add About Screen in the the next PR*/}
             composable(NavigationItem.Search.route) {/*TODO Add About Screen in the the next PR*/}
         }
