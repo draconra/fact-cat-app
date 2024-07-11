@@ -97,7 +97,6 @@ dependencies {
     implementation(libs.retrofitConverter)
     implementation(libs.okhttp)
     implementation(libs.retrofit)
-    implementation(libs.chucker)
     testImplementation(libs.junit)
     testImplementation(libs.junitJupiterApi)
     testImplementation(libs.mockk)
