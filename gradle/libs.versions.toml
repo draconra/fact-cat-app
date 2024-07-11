@@ -26,11 +26,12 @@ coroutinesTest = "1.8.1"
 junitVintage = "5.10.3"
 robolectric = "4.13"
 core = "1.44.0"
+navigationCompose = "2.7.7"
 
 [libraries]
 coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 lifecycleRuntime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntime" }
-liveDataRuntime = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "liveDataRuntime"}
+liveDataRuntime = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "liveDataRuntime" }
 activityCompose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 composeUi = { module = "androidx.compose.ui:ui", version.ref = "composeUi" }
 composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "composeUi" }
@@ -54,11 +55,14 @@ composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest", versi
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 junitJupiterApi = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
 junitJupiterEngine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiter" }
-coreTesting = { module = "android.arch.core:core-testing", version.ref = "datastore"}
+coreTesting = { module = "android.arch.core:core-testing", version.ref = "datastore" }
 coroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTest" }
 junitVintage = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "junitVintage" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 core = { group = "com.google.ar", name = "core", version.ref = "core" }
+navigationCompose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+foundation = { module = "androidx.compose.foundation:foundation", version.ref = "composeUi" }
+material = { module = "androidx.compose.material:material", version.ref = "composeUi" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
