@@ -111,6 +111,8 @@ dependencies {
     testRuntimeOnly(libs.junitVintage)
     debugImplementation(libs.composeUiTooling)
     debugImplementation(libs.composeUiTestManifest)
+    debugImplementation(libs.chucker)
+    releaseImplementation(libs.chuckerNoOp)
 }
 
 tasks.withType<Test> {
