@@ -5,4 +5,7 @@
     <string name="no_fact_available">No fact available</string>
     <string name="preview_fact">Preview Fact</string>
     <string name="error_message">something went wrong. error = %1$s</string>
+    <string name="home">Home</string>
+    <string name="history">History</string>
+    <string name="about">About</string>
 </resources>
