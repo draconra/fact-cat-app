@@ -13,7 +13,8 @@ sealed class NavigationItem(
     @StringRes val label: Int,
     val icon: ImageVector
 ) {
-    object Home : NavigationItem("home", R.string.home, Icons.Default.Home)
-    object History : NavigationItem("history", R.string.history, Icons.Default.Favorite)
-    object About : NavigationItem("about", R.string.about, Icons.Default.Info)
+    data object Home : NavigationItem("home", R.string.home, Icons.Default.Home)
+    data object History : NavigationItem("history", R.string.history, Icons.Default.Favorite)
+    data object About : NavigationItem("about", R.string.about, Icons.Default.Info)
+    data object Search : NavigationItem("search", R.string.about, Icons.Default.Info)
 }

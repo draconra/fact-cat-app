@@ -3,6 +3,7 @@ package jp.speakbuddy.edisonandroidexercise.ui.home
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -28,9 +29,9 @@ fun HomeScreen(viewModel: FactViewModel) {
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(id = R.string.app_name)) },
-                navigationIcon = {
-                    IconButton(onClick = { /* Do something */ }) {
-                        Icon(Icons.Default.Menu, contentDescription = null)
+                actions = {
+                    IconButton(onClick = { navController.navigate(NavigationItem.Search.route) }) {
+                        Icon(Icons.Default.Search, contentDescription = stringResource(id = R.string.search))
                     }
                 }
             )
@@ -43,6 +44,7 @@ fun HomeScreen(viewModel: FactViewModel) {
             composable(NavigationItem.Home.route) { FactScreen(viewModel = viewModel) }
             composable(NavigationItem.History.route) {/*TODO Add History Screen in the next PR*/}
             composable(NavigationItem.About.route) {/*TODO Add About Screen in the the next PR*/}
+            composable(NavigationItem.Search.route) {/*TODO Add About Screen in the the next PR*/}
         }
     }
 }

@@ -36,11 +36,6 @@ fun FactScreen(
             alignment = Alignment.CenterVertically
         )
     ) {
-        Text(
-            text = stringResource(id = R.string.fact),
-            style = MaterialTheme.typography.titleLarge
-        )
-
         if (loading) {
             CircularProgressIndicator()
         } else {
