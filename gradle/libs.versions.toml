@@ -29,6 +29,8 @@ core = "1.44.0"
 navigationCompose = "2.7.7"
 lottie = "6.4.1"
 chucker = "4.0.0"
+googleService = "4.4.2"
+firebase-bom = "33.1.1"
 
 
 [libraries]
@@ -69,6 +71,8 @@ material = { module = "androidx.compose.material:material", version.ref = "compo
 chucker = { module = "com.github.chuckerteam.chucker:library", version.ref = "chucker" }
 chuckerNoOp = { module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "chucker" }
 lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
+crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -77,3 +81,5 @@ kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
+googleService = { id = "com.google.gms.google-services", version.ref = "googleService" }
+crashlytics = { id = "com.google.firebase.crashlytics" }
