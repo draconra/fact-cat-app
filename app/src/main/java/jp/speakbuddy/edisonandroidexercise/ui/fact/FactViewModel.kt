@@ -56,6 +56,7 @@ class FactViewModel @Inject constructor(
                 val newFact = response?.fact ?: "Preview Fact"
                 updateFactState(newFact, response?.length ?: 0)
                 saveFactToDataStore(newFact)
+                addFactToHistory(newFact)
             } catch (e: Throwable) {
                 _fact.value = "Something went wrong. Error: ${e.message}"
             }
@@ -75,6 +76,10 @@ class FactViewModel @Inject constructor(
 
     private suspend fun saveFactToDataStore(fact: String) {
         dataStoreRepository?.saveLastFact(fact)
+    }
+
+    private suspend fun addFactToHistory(fact: String) {
+        dataStoreRepository?.addFactToHistory(fact)
     }
 
     private fun setLoading(isLoading: Boolean) {
