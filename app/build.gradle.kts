@@ -2,9 +2,11 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.googleService)
     kotlin("kapt")
     alias(libs.plugins.hilt)
     alias(libs.plugins.protobuf)
+    alias(libs.plugins.crashlytics)
 }
 
 android {
@@ -98,6 +100,8 @@ dependencies {
     implementation(libs.retrofitConverter)
     implementation(libs.okhttp)
     implementation(libs.retrofit)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.crashlytics)
     testImplementation(libs.junit)
     testImplementation(libs.junitJupiterApi)
     testImplementation(libs.mockk)
