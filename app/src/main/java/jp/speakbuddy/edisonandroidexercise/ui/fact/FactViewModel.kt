@@ -1,27 +1,31 @@
 package jp.speakbuddy.edisonandroidexercise.ui.fact
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.speakbuddy.edisonandroidexercise.di.DataStoreRepository
 import jp.speakbuddy.edisonandroidexercise.network.FactService
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-open class FactViewModel @Inject constructor(
+class FactViewModel @Inject constructor(
     private val factService: FactService?,
     private val dataStoreRepository: DataStoreRepository?
 ) : ViewModel() {
 
-    private val _fact = MutableLiveData<String>()
-    val fact: LiveData<String> = _fact
+    private val _fact = MutableStateFlow("No fact available")
+    val fact: StateFlow<String> = _fact.asStateFlow()
 
-    private val _loading = MutableLiveData<Boolean>()
-    val loading: LiveData<Boolean> = _loading
+    private val _length = MutableStateFlow(0)
+    val length: StateFlow<Int> = _length.asStateFlow()
+
+    private val _loading = MutableStateFlow(false)
+    val loading: StateFlow<Boolean> = _loading.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -36,8 +40,10 @@ open class FactViewModel @Inject constructor(
         viewModelScope.launch {
             _loading.value = true
             try {
-                val newFact = factService?.getFact()?.fact ?: "Preview Fact"
+                val response = factService?.getFact()
+                val newFact = response?.fact ?: "Preview Fact"
                 _fact.value = newFact
+                _length.value = response?.length ?: 0
                 dataStoreRepository?.saveLastFact(newFact)
             } catch (e: Throwable) {
                 _fact.value = "Something went wrong. Error: ${e.message}"

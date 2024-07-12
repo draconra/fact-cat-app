@@ -2,8 +2,10 @@ package jp.speakbuddy.edisonandroidexercise.ui.fact
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -18,6 +20,7 @@ import jp.speakbuddy.edisonandroidexercise.R
 @Composable
 fun FactBody(
     fact: String,
+    length: Int,
     onUpdateFact: () -> Unit
 ) {
     Column(
@@ -27,12 +30,20 @@ fun FactBody(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+        FactTopLottieAnimation()
         Text(
             text = fact,
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
+        if (length > 100) {
+            Text(
+                text = stringResource(id = R.string.fact_length, length),
+                style = MaterialTheme.typography.bodySmall
+            )
+        }
+        Spacer(modifier = Modifier.size(10.dp))
         Button(onClick = onUpdateFact) {
             Text(text = stringResource(R.string.update_fact))
         }
@@ -42,5 +53,5 @@ fun FactBody(
 @Preview
 @Composable
 private fun Preview() {
-    FactBody(fact = stringResource(id = R.string.fact), onUpdateFact = {})
+    FactBody(fact = stringResource(id = R.string.fact), length = 102, onUpdateFact = {})
 }
