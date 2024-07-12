@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import jp.speakbuddy.edisonandroidexercise.R
+import jp.speakbuddy.edisonandroidexercise.ui.home.LottieImageAnimation
 import jp.speakbuddy.edisonandroidexercise.util.isLongFact
 
 @Composable
@@ -30,7 +31,7 @@ fun FactBody(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        FactTopLottieAnimation()
+        LottieImageAnimation(rawRes = R.raw.cat_write, size = 150.dp)
         Text(
             text = fact,
             style = MaterialTheme.typography.bodyLarge,
