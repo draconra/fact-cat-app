@@ -59,6 +59,6 @@ fun FactHistoryCard(fact: String) {
 
 @Composable
 @Preview
-fun PreviewScreen() {
+fun PreviewHistory() {
     FactHistoryCard(fact = "Nyan")
 }

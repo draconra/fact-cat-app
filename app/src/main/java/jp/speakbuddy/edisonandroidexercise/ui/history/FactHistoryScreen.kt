@@ -28,14 +28,18 @@ fun FactHistoryScreen(viewModel: FactHistoryViewModel = hiltViewModel()) {
         }
     }
 
-    LazyColumn(
-        state = listState,
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        items(factHistory) { fact ->
-            FactHistoryCard(fact = fact)
+    if (factHistory.isEmpty()) {
+        NoFactsFound()
+    } else {
+        LazyColumn(
+            state = listState,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
+            items(factHistory) { fact ->
+                FactHistoryCard(fact = fact)
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
@@ -13,13 +14,18 @@ import com.airbnb.lottie.compose.rememberLottieComposition
 import jp.speakbuddy.edisonandroidexercise.R
 
 @Composable
-fun LottieLoadingAnimation() {
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.cat_loading))
-    val progress by animateLottieCompositionAsState(composition, iterations = LottieConstants.IterateForever)
+fun LottieImageAnimation(
+    rawRes: Int = R.raw.cat_loading,
+    modifier: Modifier = Modifier,
+    size: Dp = 300.dp,
+    iterations: Int = LottieConstants.IterateForever
+) {
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(rawRes))
+    val progress by animateLottieCompositionAsState(composition, iterations = iterations)
 
     LottieAnimation(
         composition = composition,
         progress = { progress },
-        modifier = Modifier.size(300.dp)
+        modifier = modifier.size(size)
     )
 }

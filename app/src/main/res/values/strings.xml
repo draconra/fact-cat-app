@@ -11,5 +11,6 @@
     <string name="search">Search</string>
     <string name="fact_length">Length: %d</string>
     <string name="multiple_cats">Multiple cats!</string>
+    <string name="no_facts_available">No facts available</string>
     <string name="close">Close</string>
 </resources>
