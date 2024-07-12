@@ -22,6 +22,7 @@ fun FactScreen(
     val fact by viewModel.fact.collectAsState()
     val length by viewModel.length.collectAsState()
     val loading by viewModel.loading.collectAsState()
+    val showCatsDialog by viewModel.showCatsDialog.collectAsState()
 
     Column(
         modifier = Modifier
@@ -39,5 +40,9 @@ fun FactScreen(
         } else {
             FactBody(fact = fact, length = length, onUpdateFact = { viewModel.updateFact() })
         }
+    }
+
+    if (showCatsDialog) {
+        CatsDialog(fact = fact, onDismiss = { viewModel.dismissCatsDialog() })
     }
 }
