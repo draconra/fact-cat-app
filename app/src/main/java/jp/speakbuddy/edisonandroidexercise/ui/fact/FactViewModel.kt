@@ -27,6 +27,10 @@ class FactViewModel @Inject constructor(
     private val _loading = MutableStateFlow(false)
     val loading: StateFlow<Boolean> = _loading.asStateFlow()
 
+    private val _showCatsDialog = MutableStateFlow(false)
+    val showCatsDialog: StateFlow<Boolean> = _showCatsDialog.asStateFlow()
+
+
     init {
         viewModelScope.launch {
             _loading.value = true
@@ -44,11 +48,16 @@ class FactViewModel @Inject constructor(
                 val newFact = response?.fact ?: "Preview Fact"
                 _fact.value = newFact
                 _length.value = response?.length ?: 0
+                _showCatsDialog.value = newFact.contains("cats", ignoreCase = true)
                 dataStoreRepository?.saveLastFact(newFact)
             } catch (e: Throwable) {
                 _fact.value = "Something went wrong. Error: ${e.message}"
             }
             _loading.value = false
         }
+    }
+
+    fun dismissCatsDialog() {
+        _showCatsDialog.value = false
     }
 }
