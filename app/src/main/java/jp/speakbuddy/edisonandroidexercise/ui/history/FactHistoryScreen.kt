@@ -29,6 +29,7 @@ fun FactHistoryScreen(viewModel: FactHistoryViewModel = hiltViewModel()) {
     }
 
     LazyColumn(
+        state = listState,
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
