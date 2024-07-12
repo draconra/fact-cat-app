@@ -27,8 +27,9 @@ junitVintage = "5.10.3"
 robolectric = "4.13"
 core = "1.44.0"
 navigationCompose = "2.7.7"
-chucker = "3.5.2"
 lottie = "5.2.0"
+chucker = "4.0.0"
+
 
 [libraries]
 coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
