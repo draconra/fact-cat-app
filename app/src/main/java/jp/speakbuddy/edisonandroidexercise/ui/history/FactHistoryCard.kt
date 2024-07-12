@@ -9,8 +9,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import jp.speakbuddy.edisonandroidexercise.R
 import jp.speakbuddy.edisonandroidexercise.util.containsCats
 import jp.speakbuddy.edisonandroidexercise.util.isLongFact
 
@@ -38,15 +41,15 @@ fun FactHistoryCard(fact: String) {
             )
             if (isLong) {
                 Text(
-                    text = "Length: $factLength",
-                    style = MaterialTheme.typography.bodySmall,
+                    text = stringResource(id = R.string.fact_length, factLength),
+                    style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
                     modifier = Modifier.padding(bottom = 4.dp)
                 )
             }
             if (containsCats) {
                 Text(
-                    text = "Multiple cats!",
-                    style = MaterialTheme.typography.bodySmall,
+                    text = stringResource(id = R.string.multiple_cats),
+                    style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
                     modifier = Modifier.padding(bottom = 4.dp)
                 )
             }
@@ -56,6 +59,6 @@ fun FactHistoryCard(fact: String) {
 
 @Composable
 @Preview
-fun PreviewScreen(){
+fun PreviewScreen() {
     FactHistoryCard(fact = "Nyan")
 }

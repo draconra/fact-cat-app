@@ -16,11 +16,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import jp.speakbuddy.edisonandroidexercise.R
+import jp.speakbuddy.edisonandroidexercise.util.isLongFact
 
 @Composable
 fun FactBody(
     fact: String,
-    length: Int,
     onUpdateFact: () -> Unit
 ) {
     Column(
@@ -36,10 +36,9 @@ fun FactBody(
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.padding(bottom = 16.dp)
         )
-
-        if (length > 100) {
+        if (isLongFact(fact)) {
             Text(
-                text = stringResource(id = R.string.fact_length, length),
+                text = stringResource(id = R.string.fact_length, fact.length),
                 style = MaterialTheme.typography.bodySmall
             )
         }
@@ -53,5 +52,5 @@ fun FactBody(
 @Preview
 @Composable
 private fun Preview() {
-    FactBody(fact = stringResource(id = R.string.fact), length = 102, onUpdateFact = {})
+    FactBody(fact = stringResource(id = R.string.fact), onUpdateFact = {})
 }
