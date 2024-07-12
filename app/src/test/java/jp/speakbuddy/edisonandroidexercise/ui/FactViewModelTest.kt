@@ -81,6 +81,7 @@ class FactViewModelTest {
         advanceUntilIdle()
 
         Assert.assertEquals(newFact, viewModel.fact.getOrAwaitValue())
+        Assert.assertEquals(newFact.length, viewModel.length.getOrAwaitValue())
         coVerify { dataStoreRepository.saveLastFact(newFact) }
     }
 
@@ -95,5 +96,35 @@ class FactViewModelTest {
 
         val expectedErrorMessage = "Something went wrong. Error: $errorMessage"
         Assert.assertEquals(expectedErrorMessage, viewModel.fact.getOrAwaitValue())
+    }
+
+    @Test
+    fun `showCatsDialog is set to true when fact contains the word cats`() = runTest {
+        val catFact = "This is a fact about cats"
+        coEvery { factService.getFact() } returns FactResponse(catFact, catFact.length)
+        coEvery { dataStoreRepository.saveLastFact(catFact) } just Runs
+
+        viewModel.updateFact()
+
+        advanceUntilIdle()
+
+        Assert.assertEquals(catFact, viewModel.fact.getOrAwaitValue())
+        Assert.assertTrue(viewModel.showCatsDialog.getOrAwaitValue())
+    }
+
+    @Test
+    fun `showCatsDialog is set to false when dismissCatsDialog is called`() = runTest {
+        val catFact = "This is a fact about cats"
+        coEvery { factService.getFact() } returns FactResponse(catFact, catFact.length)
+        coEvery { dataStoreRepository.saveLastFact(catFact) } just Runs
+
+        viewModel.updateFact()
+
+        advanceUntilIdle()
+
+        viewModel.dismissCatsDialog()
+        advanceUntilIdle()
+
+        Assert.assertFalse(viewModel.showCatsDialog.getOrAwaitValue())
     }
 }
