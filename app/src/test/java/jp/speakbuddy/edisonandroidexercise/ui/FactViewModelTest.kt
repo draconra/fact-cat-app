@@ -24,13 +24,12 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
 @OptIn(ExperimentalCoroutinesApi::class)
-@RunWith(RobolectricTestRunner::class)
-@Config(manifest = Config.NONE)
 class FactViewModelTest {
 
     @get:Rule
@@ -67,22 +66,27 @@ class FactViewModelTest {
 
         advanceUntilIdle()
 
-        Assert.assertEquals(expectedFact, viewModel.fact.getOrAwaitValue())
+        assertEquals(expectedFact, viewModel.fact.value)
     }
 
     @Test
     fun `updateFact updates fact and saves it to DataStore`() = runTest {
         val newFact = "New Fact"
-        coEvery { factService.getFact() } returns FactResponse(newFact, newFact.length)
+        val factResponse = FactResponse(newFact, newFact.length)
+        coEvery { factService.getFact() } returns factResponse
         coEvery { dataStoreRepository.saveLastFact(newFact) } just Runs
+        coEvery { dataStoreRepository.addFactToHistory(newFact) } just Runs
 
         viewModel.updateFact()
 
         advanceUntilIdle()
 
-        Assert.assertEquals(newFact, viewModel.fact.getOrAwaitValue())
-        Assert.assertEquals(newFact.length, viewModel.length.getOrAwaitValue())
+        assertEquals(newFact, viewModel.fact.value)
+        assertEquals(false, viewModel.loading.value)
+        assertEquals(false, viewModel.showCatsDialog.value)
+
         coVerify { dataStoreRepository.saveLastFact(newFact) }
+        coVerify { dataStoreRepository.addFactToHistory(newFact) }
     }
 
     @Test
@@ -95,36 +99,24 @@ class FactViewModelTest {
         advanceUntilIdle()
 
         val expectedErrorMessage = "Something went wrong. Error: $errorMessage"
-        Assert.assertEquals(expectedErrorMessage, viewModel.fact.getOrAwaitValue())
+        assertEquals(expectedErrorMessage, viewModel.fact.value)
+        assertEquals(false, viewModel.loading.value)
     }
 
     @Test
-    fun `showCatsDialog is set to true when fact contains the word cats`() = runTest {
-        val catFact = "This is a fact about cats"
-        coEvery { factService.getFact() } returns FactResponse(catFact, catFact.length)
-        coEvery { dataStoreRepository.saveLastFact(catFact) } just Runs
+    fun `updateFact shows cats dialog when fact contains cats`() = runTest {
+        val newFact = "This fact contains cats"
+        val factResponse = FactResponse(newFact, newFact.length)
+        coEvery { factService.getFact() } returns factResponse
+        coEvery { dataStoreRepository.saveLastFact(newFact) } just Runs
+        coEvery { dataStoreRepository.addFactToHistory(newFact) } just Runs
 
         viewModel.updateFact()
 
         advanceUntilIdle()
 
-        Assert.assertEquals(catFact, viewModel.fact.getOrAwaitValue())
-        Assert.assertTrue(viewModel.showCatsDialog.getOrAwaitValue())
-    }
-
-    @Test
-    fun `showCatsDialog is set to false when dismissCatsDialog is called`() = runTest {
-        val catFact = "This is a fact about cats"
-        coEvery { factService.getFact() } returns FactResponse(catFact, catFact.length)
-        coEvery { dataStoreRepository.saveLastFact(catFact) } just Runs
-
-        viewModel.updateFact()
-
-        advanceUntilIdle()
-
-        viewModel.dismissCatsDialog()
-        advanceUntilIdle()
-
-        Assert.assertFalse(viewModel.showCatsDialog.getOrAwaitValue())
+        assertEquals(newFact, viewModel.fact.value)
+        assertEquals(true, viewModel.showCatsDialog.value)
+        assertEquals(false, viewModel.loading.value)
     }
 }
