@@ -13,14 +13,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import jp.speakbuddy.edisonandroidexercise.ui.home.LottieLoadingAnimation
+import jp.speakbuddy.edisonandroidexercise.ui.home.LottieImageAnimation
 
 @Composable
 fun FactScreen(
     viewModel: FactViewModel = hiltViewModel()
 ) {
     val fact by viewModel.fact.collectAsState()
-    val length by viewModel.length.collectAsState()
     val loading by viewModel.loading.collectAsState()
     val showCatsDialog by viewModel.showCatsDialog.collectAsState()
 
@@ -36,9 +35,9 @@ fun FactScreen(
         )
     ) {
         if (loading) {
-            LottieLoadingAnimation()
+            LottieImageAnimation()
         } else {
-            FactBody(fact = fact, length = length, onUpdateFact = { viewModel.updateFact() })
+            FactBody(fact = fact, onUpdateFact = { viewModel.updateFact() })
         }
     }
 

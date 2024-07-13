@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.speakbuddy.edisonandroidexercise.di.DataStoreRepository
 import jp.speakbuddy.edisonandroidexercise.network.FactResponse
 import jp.speakbuddy.edisonandroidexercise.network.FactService
+import jp.speakbuddy.edisonandroidexercise.util.containsCats
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,9 +22,6 @@ class FactViewModel @Inject constructor(
 
     private val _fact = MutableStateFlow("No fact available")
     val fact: StateFlow<String> = _fact.asStateFlow()
-
-    private val _length = MutableStateFlow(0)
-    val length: StateFlow<Int> = _length.asStateFlow()
 
     private val _loading = MutableStateFlow(false)
     val loading: StateFlow<Boolean> = _loading.asStateFlow()
@@ -56,6 +54,7 @@ class FactViewModel @Inject constructor(
                 val newFact = response?.fact ?: "Preview Fact"
                 updateFactState(newFact, response?.length ?: 0)
                 saveFactToDataStore(newFact)
+                addFactToHistory(newFact)
             } catch (e: Throwable) {
                 _fact.value = "Something went wrong. Error: ${e.message}"
             }
@@ -69,12 +68,15 @@ class FactViewModel @Inject constructor(
 
     private fun updateFactState(newFact: String, length: Int) {
         _fact.value = newFact
-        _length.value = length
-        _showCatsDialog.value = newFact.contains("cats", ignoreCase = true)
+        _showCatsDialog.value = containsCats(newFact)
     }
 
     private suspend fun saveFactToDataStore(fact: String) {
         dataStoreRepository?.saveLastFact(fact)
+    }
+
+    private suspend fun addFactToHistory(fact: String) {
+        dataStoreRepository?.addFactToHistory(fact)
     }
 
     private fun setLoading(isLoading: Boolean) {
