@@ -54,10 +54,12 @@ fun FactScreen(viewModel: FactViewModel = hiltViewModel()) {
 
             is FactUiState.Error -> {
                 val state = uiState as FactUiState.Error
-                ErrorContent(error = state.error ?: "")
+                ErrorContent(error = state.error ?: "", onTryAgain = { viewModel.updateFact() })
             }
 
-            is FactUiState.NoData -> ErrorContent(error = stringResource(id = R.string.no_fact_available))
+            is FactUiState.NoData -> ErrorContent(
+                error = stringResource(id = R.string.no_fact_available),
+                onTryAgain = { viewModel.updateFact() })
         }
     }
 }
