@@ -35,6 +35,7 @@ class FactHistoryViewModelTest {
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
+        coEvery { dataStoreRepository.factHistory } returns MutableStateFlow(emptyList())
     }
 
     @After
