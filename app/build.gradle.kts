@@ -80,9 +80,12 @@ protobuf {
 }
 
 dependencies {
+    // Core and Kotlin
     implementation(libs.coreKtx)
     implementation(libs.lifecycleRuntime)
     implementation(libs.liveDataRuntime)
+
+    // Compose and UI
     implementation(libs.activityCompose)
     implementation(libs.composeUi)
     implementation(libs.composeUiToolingPreview)
@@ -91,20 +94,28 @@ dependencies {
     implementation(libs.foundation)
     implementation(libs.material)
     implementation(libs.lottie)
+
+    // DataStore and Protobuf
     implementation(libs.datastorePreferences)
     implementation(libs.datastore)
+    implementation(libs.protobufKotlinLite)
+
+    // Dependency Injection
     implementation(libs.hiltAndroid)
     implementation(libs.hiltNavigation)
-    implementation(libs.core)
-    testImplementation(libs.junit.jupiter)
     kapt(libs.hiltAndroidCompiler)
-    implementation(libs.protobufKotlinLite)
+
+    // Networking and Serialization
     implementation(libs.kotlinxSerializationJson)
     implementation(libs.retrofitConverter)
     implementation(libs.okhttp)
     implementation(libs.retrofit)
+
+    // Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.crashlytics)
+
+    // Testing
     testImplementation(libs.junit)
     testImplementation(libs.junitJupiterApi)
     testImplementation(libs.mockk)
@@ -117,15 +128,17 @@ dependencies {
     testImplementation(libs.coreTesting)
     testImplementation(libs.coroutinesTest)
     testRuntimeOnly(libs.junitVintage)
-    debugImplementation(libs.composeUiTooling)
-    debugImplementation(libs.composeUiTestManifest)
-    debugImplementation(libs.chucker)
-    releaseImplementation(libs.chuckerNoOp)
     androidTestImplementation(libs.androidJUnit5)
     androidTestImplementation(libs.androidJUnit5Runner)
     androidTestImplementation(libs.hiltAndroidTesting)
     androidTestImplementation(libs.mockkAndroid)
     kaptAndroidTest(libs.hiltAndroid)
+
+    // Debugging
+    debugImplementation(libs.composeUiTooling)
+    debugImplementation(libs.composeUiTestManifest)
+    debugImplementation(libs.chucker)
+    releaseImplementation(libs.chuckerNoOp)
 }
 
 tasks.withType<Test> {
