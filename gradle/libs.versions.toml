@@ -31,7 +31,9 @@ lottie = "6.4.1"
 chucker = "4.0.0"
 googleService = "4.4.2"
 firebase-bom = "33.1.2"
-
+junitJupiterVersion = "5.8.1"
+androidJUnit5 = "1.4.0"
+androidJUnit5Plugin = "1.8.2.1"
 
 [libraries]
 coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
@@ -58,6 +60,7 @@ composeUiTestJunit4 = { module = "androidx.compose.ui:ui-test-junit4", version.r
 composeUiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "composeUi" }
 composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "composeUi" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+mockkAndroid = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 junitJupiterApi = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
 junitJupiterEngine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiter" }
 coreTesting = { module = "android.arch.core:core-testing", version.ref = "datastore" }
@@ -73,6 +76,10 @@ chuckerNoOp = { module = "com.github.chuckerteam.chucker:library-no-op", version
 lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiterVersion" }
+androidJUnit5 = { module = "de.mannodermaus.junit5:android-test-core", version.ref = "androidJUnit5" }
+androidJUnit5Runner = { module = "de.mannodermaus.junit5:android-test-runner", version.ref = "androidJUnit5" }
+hiltAndroidTesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -83,3 +90,4 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 googleService = { id = "com.google.gms.google-services", version.ref = "googleService" }
 crashlytics = { id = "com.google.firebase.crashlytics" }
+androidJUnit5 = { id = "de.mannodermaus.android-junit5", version.ref = "androidJUnit5Plugin" }

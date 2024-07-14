@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,7 +28,8 @@ fun FactBody(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(16.dp)
+            .testTag(FactTestTag.FACT_BODY),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -44,7 +46,10 @@ fun FactBody(
             )
         }
         Spacer(modifier = Modifier.size(10.dp))
-        Button(onClick = onUpdateFact) {
+        Button(
+            onClick = onUpdateFact,
+            modifier = Modifier.testTag(FactTestTag.UPDATE_FACT_BUTTON)
+        ) {
             Text(text = stringResource(R.string.update_fact))
         }
     }

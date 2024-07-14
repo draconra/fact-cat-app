@@ -16,13 +16,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FactViewModel @Inject constructor(
+open class FactViewModel @Inject constructor(
     private val factService: FactService?,
     private val dataStoreRepository: DataStoreRepository?
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<FactUiState>(FactUiState.Loading)
-    val uiState: StateFlow<FactUiState> = _uiState.asStateFlow()
+    open val uiState: StateFlow<FactUiState> = _uiState.asStateFlow()
 
     init {
         fetchLastFact()
@@ -79,5 +79,9 @@ class FactViewModel @Inject constructor(
         if (_uiState.value is FactUiState.Success) {
             _uiState.value = (_uiState.value as FactUiState.Success).copy(showCatsDialog = false)
         }
+    }
+
+    fun setUiState(state: FactUiState) {
+        _uiState.value = state
     }
 }
