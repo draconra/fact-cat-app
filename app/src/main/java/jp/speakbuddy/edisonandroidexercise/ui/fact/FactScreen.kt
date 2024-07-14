@@ -34,9 +34,7 @@ fun FactScreen(viewModel: FactViewModel = hiltViewModel()) {
         )
     ) {
         when (uiState) {
-            is FactUiState.Loading -> {
-                LottieImageAnimation()
-            }
+            is FactUiState.Loading -> LottieImageAnimation()
 
             is FactUiState.Success -> {
                 val state = uiState as FactUiState.Success

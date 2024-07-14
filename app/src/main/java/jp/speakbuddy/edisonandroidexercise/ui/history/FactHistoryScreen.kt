@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import jp.speakbuddy.edisonandroidexercise.ui.home.LottieImageAnimation
 import kotlinx.coroutines.launch
 
 @Composable
@@ -30,9 +31,7 @@ fun FactHistoryScreen(viewModel: FactHistoryViewModel = hiltViewModel()) {
     }
 
     when (uiState) {
-        is FactHistoryUiState.Loading -> {
-            // Display a loading indicator
-        }
+        is FactHistoryUiState.Loading -> LottieImageAnimation()
         is FactHistoryUiState.Success -> {
             LazyColumn(
                 state = listState,
@@ -46,11 +45,6 @@ fun FactHistoryScreen(viewModel: FactHistoryViewModel = hiltViewModel()) {
                 }
             }
         }
-        is FactHistoryUiState.Error -> {
-            // Display an error message
-        }
-        is FactHistoryUiState.Empty -> {
-            NoFactsFound()
-        }
+        is FactHistoryUiState.Error, FactHistoryUiState.Empty -> NoFactsFound()
     }
 }
