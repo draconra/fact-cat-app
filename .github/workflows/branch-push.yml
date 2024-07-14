@@ -1,10 +1,11 @@
-name: Merge Pre Develop
+name: Merge Branch And Upload Apk
 
 on:
-  #  push:
-  pull_request:
+  push:
     branches:
       - pre-develop
+      - develop
+      - master
 
 jobs:
   build:
