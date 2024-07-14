@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun FactHistoryScreen(viewModel: FactHistoryViewModel = hiltViewModel()) {
-    val factHistory by viewModel.factHistory.collectAsState()
+    val uiState by viewModel.uiState.collectAsState()
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
 
@@ -29,19 +29,28 @@ fun FactHistoryScreen(viewModel: FactHistoryViewModel = hiltViewModel()) {
         }
     }
 
-    if (factHistory.isEmpty()) {
-        NoFactsFound()
-    } else {
-        LazyColumn(
-            state = listState,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-                .testTag(FactHistoryTestTags.FACT_HISTORY_LIST)
-        ) {
-            items(factHistory) { fact ->
-                FactHistoryCard(fact = fact)
+    when (uiState) {
+        is FactHistoryUiState.Loading -> {
+            // Display a loading indicator
+        }
+        is FactHistoryUiState.Success -> {
+            LazyColumn(
+                state = listState,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp)
+                    .testTag(FactHistoryTestTags.FACT_HISTORY_LIST)
+            ) {
+                items((uiState as FactHistoryUiState.Success).factHistory) { fact ->
+                    FactHistoryCard(fact = fact)
+                }
             }
+        }
+        is FactHistoryUiState.Error -> {
+            // Display an error message
+        }
+        is FactHistoryUiState.Empty -> {
+            NoFactsFound()
         }
     }
 }
