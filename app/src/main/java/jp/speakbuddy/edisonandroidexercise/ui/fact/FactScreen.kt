@@ -11,17 +11,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import jp.speakbuddy.edisonandroidexercise.R
+import jp.speakbuddy.edisonandroidexercise.ui.home.ErrorContent
 import jp.speakbuddy.edisonandroidexercise.ui.home.LottieImageAnimation
 
 @Composable
-fun FactScreen(
-    viewModel: FactViewModel = hiltViewModel()
-) {
-    val fact by viewModel.fact.collectAsState()
-    val loading by viewModel.loading.collectAsState()
-    val showCatsDialog by viewModel.showCatsDialog.collectAsState()
+fun FactScreen(viewModel: FactViewModel = hiltViewModel()) {
+    val uiState by viewModel.uiState.collectAsState()
 
     Column(
         modifier = Modifier
@@ -34,14 +33,31 @@ fun FactScreen(
             alignment = Alignment.CenterVertically
         )
     ) {
-        if (loading) {
-            LottieImageAnimation()
-        } else {
-            FactBody(fact = fact, onUpdateFact = { viewModel.updateFact() })
-        }
-    }
+        when (uiState) {
+            is FactUiState.Loading -> LottieImageAnimation()
 
-    if (showCatsDialog) {
-        CatsDialog(fact = fact, onDismiss = { viewModel.dismissCatsDialog() })
+            is FactUiState.Success -> {
+                val state = uiState as FactUiState.Success
+                FactBody(
+                    fact = state.fact,
+                    onUpdateFact = { viewModel.updateFact() }
+                )
+                if (state.showCatsDialog) {
+                    CatsDialog(
+                        fact = state.fact,
+                        onDismiss = { viewModel.dismissCatsDialog() }
+                    )
+                }
+            }
+
+            is FactUiState.Error -> {
+                val state = uiState as FactUiState.Error
+                ErrorContent(error = state.error ?: "", onTryAgain = { viewModel.updateFact() })
+            }
+
+            is FactUiState.NoData -> ErrorContent(
+                error = stringResource(id = R.string.no_fact_available),
+                onTryAgain = { viewModel.updateFact() })
+        }
     }
 }

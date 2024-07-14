@@ -11,12 +11,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FactHistoryViewModel @Inject constructor(
+open class FactHistoryViewModel @Inject constructor(
     private val dataStoreRepository: DataStoreRepository?
 ) : ViewModel() {
 
-    private val _factHistory = MutableStateFlow<List<String>>(emptyList())
-    val factHistory: StateFlow<List<String>> = _factHistory.asStateFlow()
+    private val _uiState = MutableStateFlow<FactHistoryUiState>(FactHistoryUiState.Loading)
+    val uiState: StateFlow<FactHistoryUiState> = _uiState.asStateFlow()
 
     init {
         loadFactHistory()
@@ -24,9 +24,27 @@ class FactHistoryViewModel @Inject constructor(
 
     private fun loadFactHistory() {
         viewModelScope.launch {
-            dataStoreRepository?.factHistory?.collect { history ->
-                _factHistory.value = history
+            try {
+                _uiState.value = FactHistoryUiState.Loading
+                dataStoreRepository?.factHistory?.collect { history ->
+                    _uiState.value = if (history.isEmpty()) {
+                        FactHistoryUiState.Empty
+                    } else {
+                        FactHistoryUiState.Success(history)
+                    }
+                }
+            } catch (e: Exception) {
+                _uiState.value = FactHistoryUiState.Error(e.message ?: "Unknown error")
             }
+        }
+    }
+
+    // Method to set fact history for testing purposes
+    fun setFactHistory(factHistory: List<String>) {
+        _uiState.value = if (factHistory.isEmpty()) {
+            FactHistoryUiState.Empty
+        } else {
+            FactHistoryUiState.Success(factHistory)
         }
     }
 }

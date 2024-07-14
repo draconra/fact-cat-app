@@ -52,7 +52,9 @@ class FactHistoryViewModelTest {
 
         advanceUntilIdle()
 
-        assertEquals(expectedFactHistory, viewModel.factHistory.value)
+        val uiState = viewModel.uiState.value
+        assert(uiState is FactHistoryUiState.Success)
+        assertEquals(expectedFactHistory, (uiState as FactHistoryUiState.Success).factHistory)
     }
 
     @Test
@@ -67,13 +69,57 @@ class FactHistoryViewModelTest {
 
         advanceUntilIdle()
 
-        assertEquals(initialFacts, viewModel.factHistory.value)
+        var uiState = viewModel.uiState.value
+        assert(uiState is FactHistoryUiState.Success)
+        assertEquals(initialFacts, (uiState as FactHistoryUiState.Success).factHistory)
 
         // Simulate adding a new fact
         stateFlow.value = updatedFacts
 
         advanceUntilIdle()
 
-        assertEquals(updatedFacts, viewModel.factHistory.value)
+        uiState = viewModel.uiState.value
+        assert(uiState is FactHistoryUiState.Success)
+        assertEquals(updatedFacts, (uiState as FactHistoryUiState.Success).factHistory)
+    }
+
+    @Test
+    fun `setFactHistory updates the UI state`() = runTest {
+        val factHistory = listOf("Fact 1", "Fact 2")
+
+        viewModel = FactHistoryViewModel(dataStoreRepository)
+        viewModel.setFactHistory(factHistory)
+
+        advanceUntilIdle()
+
+        val uiState = viewModel.uiState.value
+        assert(uiState is FactHistoryUiState.Success)
+        assertEquals(factHistory, (uiState as FactHistoryUiState.Success).factHistory)
+    }
+
+    @Test
+    fun `error state is set when data store fails`() = runTest {
+        val errorMessage = "Data Store Error"
+        coEvery { dataStoreRepository.factHistory } throws RuntimeException(errorMessage)
+
+        viewModel = FactHistoryViewModel(dataStoreRepository)
+
+        advanceUntilIdle()
+
+        val uiState = viewModel.uiState.value
+        assert(uiState is FactHistoryUiState.Error)
+        assertEquals(errorMessage, (uiState as FactHistoryUiState.Error).message)
+    }
+
+    @Test
+    fun `empty state is set when fact history is empty`() = runTest {
+        coEvery { dataStoreRepository.factHistory } returns flowOf(emptyList())
+
+        viewModel = FactHistoryViewModel(dataStoreRepository)
+
+        advanceUntilIdle()
+
+        val uiState = viewModel.uiState.value
+        assert(uiState is FactHistoryUiState.Empty)
     }
 }

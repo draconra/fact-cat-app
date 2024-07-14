@@ -3,6 +3,7 @@ package jp.speakbuddy.edisonandroidexercise.ui.fact
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import jp.speakbuddy.edisonandroidexercise.R
 import jp.speakbuddy.edisonandroidexercise.di.DataStoreRepository
 import jp.speakbuddy.edisonandroidexercise.network.FactResponse
 import jp.speakbuddy.edisonandroidexercise.network.FactService
@@ -15,19 +16,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FactViewModel @Inject constructor(
+open class FactViewModel @Inject constructor(
     private val factService: FactService?,
     private val dataStoreRepository: DataStoreRepository?
 ) : ViewModel() {
 
-    private val _fact = MutableStateFlow("No fact available")
-    val fact: StateFlow<String> = _fact.asStateFlow()
-
-    private val _loading = MutableStateFlow(false)
-    val loading: StateFlow<Boolean> = _loading.asStateFlow()
-
-    private val _showCatsDialog = MutableStateFlow(false)
-    val showCatsDialog: StateFlow<Boolean> = _showCatsDialog.asStateFlow()
+    private val _uiState = MutableStateFlow<FactUiState>(FactUiState.Loading)
+    open val uiState: StateFlow<FactUiState> = _uiState.asStateFlow()
 
     init {
         fetchLastFact()
@@ -35,10 +30,13 @@ class FactViewModel @Inject constructor(
 
     private fun fetchLastFact() {
         viewModelScope.launch {
-            setLoading(true)
+            _uiState.value = FactUiState.Loading
             val lastFact = getLastFactFromDataStore()
-            _fact.value = lastFact ?: "No fact available"
-            setLoading(false)
+            _uiState.value = if (lastFact != null) {
+                FactUiState.Success(lastFact, containsCats(lastFact))
+            } else {
+                FactUiState.NoData(R.string.no_fact_available)
+            }
         }
     }
 
@@ -48,27 +46,25 @@ class FactViewModel @Inject constructor(
 
     fun updateFact() {
         viewModelScope.launch {
-            setLoading(true)
+            _uiState.value = FactUiState.Loading
             try {
                 val response = fetchFactFromService()
-                val newFact = response?.fact ?: "Preview Fact"
-                updateFactState(newFact, response?.length ?: 0)
-                saveFactToDataStore(newFact)
-                addFactToHistory(newFact)
+                if (response != null) {
+                    val newFact = response.fact
+                    _uiState.value = FactUiState.Success(newFact, containsCats(newFact))
+                    saveFactToDataStore(newFact)
+                    addFactToHistory(newFact)
+                } else {
+                    _uiState.value = FactUiState.NoData(R.string.no_facts_available)
+                }
             } catch (e: Throwable) {
-                _fact.value = "Something went wrong. Error: ${e.message}"
+                _uiState.value = FactUiState.Error(e.message)
             }
-            setLoading(false)
         }
     }
 
     private suspend fun fetchFactFromService(): FactResponse? {
         return factService?.getFact()
-    }
-
-    private fun updateFactState(newFact: String, length: Int) {
-        _fact.value = newFact
-        _showCatsDialog.value = containsCats(newFact)
     }
 
     private suspend fun saveFactToDataStore(fact: String) {
@@ -79,11 +75,13 @@ class FactViewModel @Inject constructor(
         dataStoreRepository?.addFactToHistory(fact)
     }
 
-    private fun setLoading(isLoading: Boolean) {
-        _loading.value = isLoading
+    fun dismissCatsDialog() {
+        if (_uiState.value is FactUiState.Success) {
+            _uiState.value = (_uiState.value as FactUiState.Success).copy(showCatsDialog = false)
+        }
     }
 
-    fun dismissCatsDialog() {
-        _showCatsDialog.value = false
+    fun setUiState(state: FactUiState) {
+        _uiState.value = state
     }
 }

@@ -1,11 +1,14 @@
+# Kotlin and Android Gradle Plugin versions
 [versions]
 kotlin = "1.9.24"
 agp = "8.5.1"
+protobufPlugin = "0.9.4"
+composeCompiler = "1.5.14"
+
+# Dependency versions
 hilt = "2.51.1"
 hiltNavigation = "1.2.0"
 protobuf = "4.27.2"
-protobufPlugin = "0.9.4"
-composeCompiler = "1.5.14"
 composeUi = "1.6.8"
 material3 = "1.2.1"
 datastore = "1.1.1"
@@ -31,26 +34,37 @@ lottie = "6.4.1"
 chucker = "4.0.0"
 googleService = "4.4.2"
 firebase-bom = "33.1.2"
+androidJUnit5 = "1.4.0"
 
-
+# Library dependencies
 [libraries]
+# Core and Kotlin
 coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 lifecycleRuntime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntime" }
 liveDataRuntime = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "liveDataRuntime" }
+core = { group = "com.google.ar", name = "core", version.ref = "core" }
+
+# Compose and UI
 activityCompose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 composeUi = { module = "androidx.compose.ui:ui", version.ref = "composeUi" }
 composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "composeUi" }
 material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
+navigationCompose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+foundation = { module = "androidx.compose.foundation:foundation", version.ref = "composeUi" }
+material = { module = "androidx.compose.material:material", version.ref = "composeUi" }
+lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
+
+# DataStore and Protobuf
 datastorePreferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
 datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
-hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
-hiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
-hiltNavigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigation" }
 protobufKotlinLite = { module = "com.google.protobuf:protobuf-kotlin-lite", version.ref = "protobuf" }
-kotlinxSerializationJson = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serializationJson" }
+
+# Networking
 retrofitConverter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version.ref = "retrofitConverter" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+
+# Testing
 junit = { module = "junit:junit", version.ref = "junit" }
 junitExt = { module = "androidx.test.ext:junit", version.ref = "junitExt" }
 espressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
@@ -58,28 +72,40 @@ composeUiTestJunit4 = { module = "androidx.compose.ui:ui-test-junit4", version.r
 composeUiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "composeUi" }
 composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "composeUi" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+mockkAndroid = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 junitJupiterApi = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
 junitJupiterEngine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiter" }
 coreTesting = { module = "android.arch.core:core-testing", version.ref = "datastore" }
 coroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTest" }
 junitVintage = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "junitVintage" }
 robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
-core = { group = "com.google.ar", name = "core", version.ref = "core" }
-navigationCompose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "composeUi" }
-material = { module = "androidx.compose.material:material", version.ref = "composeUi" }
+androidJUnit5 = { module = "de.mannodermaus.junit5:android-test-core", version.ref = "androidJUnit5" }
+androidJUnit5Runner = { module = "de.mannodermaus.junit5:android-test-runner", version.ref = "androidJUnit5" }
+hiltAndroidTesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
+
+# Dependency Injection
+hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
+hiltNavigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigation" }
+
+# Serialization
+kotlinxSerializationJson = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serializationJson" }
+
+# Debugging
 chucker = { module = "com.github.chuckerteam.chucker:library", version.ref = "chucker" }
 chuckerNoOp = { module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "chucker" }
-lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
+
+# Firebase
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 
+# Plugins
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 googleService = { id = "com.google.gms.google-services", version.ref = "googleService" }
 crashlytics = { id = "com.google.firebase.crashlytics" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
