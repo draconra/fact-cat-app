@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FactHistoryViewModel @Inject constructor(
+open class FactHistoryViewModel @Inject constructor(
     private val dataStoreRepository: DataStoreRepository?
 ) : ViewModel() {
 
@@ -28,5 +28,10 @@ class FactHistoryViewModel @Inject constructor(
                 _factHistory.value = history
             }
         }
+    }
+
+    // Method to set fact history for testing purposes
+    fun setFactHistory(factHistory: List<String>) {
+        _factHistory.value = factHistory
     }
 }

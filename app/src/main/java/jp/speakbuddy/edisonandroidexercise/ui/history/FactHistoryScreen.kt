@@ -11,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.launch
@@ -36,6 +37,7 @@ fun FactHistoryScreen(viewModel: FactHistoryViewModel = hiltViewModel()) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
+                .testTag(FactHistoryTestTags.FACT_HISTORY_LIST)
         ) {
             items(factHistory) { fact ->
                 FactHistoryCard(fact = fact)
