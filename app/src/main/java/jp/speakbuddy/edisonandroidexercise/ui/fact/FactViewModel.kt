@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jp.speakbuddy.edisonandroidexercise.R
 import jp.speakbuddy.edisonandroidexercise.di.DataStoreRepository
-import jp.speakbuddy.edisonandroidexercise.network.FactResponse
+import jp.speakbuddy.edisonandroidexercise.model.FactResponse
 import jp.speakbuddy.edisonandroidexercise.network.FactService
 import jp.speakbuddy.edisonandroidexercise.util.containsCats
 import kotlinx.coroutines.flow.MutableStateFlow

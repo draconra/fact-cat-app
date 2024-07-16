@@ -14,4 +14,5 @@
     <string name="no_facts_available">No facts available</string>
     <string name="close">Close</string>
     <string name="try_again">Try Again</string>
+    <string name="enter_query">Enter a query to search for cat facts.</string>
 </resources>
