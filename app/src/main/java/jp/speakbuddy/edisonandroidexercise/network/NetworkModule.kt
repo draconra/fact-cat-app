@@ -31,7 +31,9 @@ internal object NetworkModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
         .baseUrl("https://catfact.ninja/")
         .client(okHttpClient)
-        .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+        .addConverterFactory(Json {
+            ignoreUnknownKeys = true
+        }.asConverterFactory("application/json".toMediaType()))
         .build()
 
     @Provides
