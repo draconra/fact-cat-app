@@ -1,7 +1,6 @@
 package jp.speakbuddy.edisonandroidexercise.search
 
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
@@ -12,7 +11,6 @@ import io.mockk.unmockkAll
 import jp.speakbuddy.edisonandroidexercise.model.FactListResponse
 import jp.speakbuddy.edisonandroidexercise.model.FactResponse
 import jp.speakbuddy.edisonandroidexercise.network.FactService
-import jp.speakbuddy.edisonandroidexercise.ui.fact.FactTestTag
 import jp.speakbuddy.edisonandroidexercise.ui.search.SearchScreen
 import jp.speakbuddy.edisonandroidexercise.ui.search.SearchViewModel
 import kotlinx.coroutines.test.runTest
