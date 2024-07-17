@@ -3,7 +3,6 @@ package jp.speakbuddy.edisonandroidexercise.ui.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jp.speakbuddy.edisonandroidexercise.model.FactResponse
 import jp.speakbuddy.edisonandroidexercise.network.FactService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,14 +23,15 @@ class SearchViewModel @Inject constructor(
             _uiState.value = SearchUiState.Loading
             try {
                 val factsResponse = factService.getFacts(limit, maxLength)
-                val filteredFacts = factsResponse.data.filter { it.fact.contains(query, ignoreCase = true) }
-                if (filteredFacts.isNotEmpty()) {
-                    _uiState.value = SearchUiState.Success(filteredFacts)
+                val filteredFacts =
+                    factsResponse.data.filter { it.fact.contains(query, ignoreCase = true) }
+                _uiState.value = if (filteredFacts.isNotEmpty()) {
+                    SearchUiState.Success(filteredFacts)
                 } else {
-                    _uiState.value = SearchUiState.NoData("No facts found for query: $query")
+                    SearchUiState.NoData(query)
                 }
             } catch (e: Throwable) {
-                _uiState.value = SearchUiState.Error(e.message ?: "An unknown error occurred")
+                _uiState.value = SearchUiState.Error(e.message)
             }
         }
     }

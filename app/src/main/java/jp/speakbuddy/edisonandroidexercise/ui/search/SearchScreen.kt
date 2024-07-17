@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -19,17 +19,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import jp.speakbuddy.edisonandroidexercise.R
-import jp.speakbuddy.edisonandroidexercise.ui.history.FactHistoryCard
 import jp.speakbuddy.edisonandroidexercise.ui.home.LottieImageAnimation
 
 @Composable
 fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsState()
     var query by remember { mutableStateOf("") }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Column(
         modifier = Modifier
@@ -39,17 +41,31 @@ fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
         TextField(
             value = query,
             onValueChange = { query = it },
-            label = { Text("Search for cat facts") },
-            modifier = Modifier.fillMaxWidth()
+            label = { Text(stringResource(R.string.search_for_cat_facts)) },
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions.Default.copy(
+                imeAction = ImeAction.Search
+            ),
+            keyboardActions = KeyboardActions(
+                onSearch = {
+                    keyboardController?.hide()
+                    viewModel.searchFacts(query)
+                }
+            )
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = { viewModel.searchFacts(query) },
-            modifier = Modifier.align(Alignment.End)
+            onClick = {
+                keyboardController?.hide()
+                viewModel.searchFacts(query)
+            },
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .fillMaxWidth()
         ) {
-            Text("Search")
+            Text(stringResource(id = R.string.search))
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -64,19 +80,23 @@ fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
             }
 
             is SearchUiState.Success -> {
-                LazyColumn {
-                    items((uiState as SearchUiState.Success).facts) { fact ->
-                        FactHistoryCard(fact = fact.fact)
-                    }
-                }
+                SearchItem(facts = (uiState as SearchUiState.Success).facts)
             }
 
             is SearchUiState.NoData -> {
-                Text((uiState as SearchUiState.NoData).message)
+                Text(
+                    stringResource(
+                        id = R.string.no_search_found,
+                        (uiState as SearchUiState.NoData).message
+                    )
+                )
             }
 
             is SearchUiState.Error -> {
-                Text((uiState as SearchUiState.Error).error)
+                Text(
+                    (uiState as SearchUiState.Error).error
+                        ?: stringResource(id = R.string.error_message)
+                )
             }
         }
     }
