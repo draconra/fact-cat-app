@@ -1,4 +1,4 @@
-package jp.speakbuddy.edisonandroidexercise.ui
+package jp.speakbuddy.edisonandroidexercise.ui.fact
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import io.mockk.Runs
@@ -8,10 +8,8 @@ import io.mockk.just
 import io.mockk.mockk
 import io.mockk.unmockkAll
 import jp.speakbuddy.edisonandroidexercise.di.DataStoreRepository
-import jp.speakbuddy.edisonandroidexercise.network.FactResponse
+import jp.speakbuddy.edisonandroidexercise.model.FactResponse
 import jp.speakbuddy.edisonandroidexercise.network.FactService
-import jp.speakbuddy.edisonandroidexercise.ui.fact.FactUiState
-import jp.speakbuddy.edisonandroidexercise.ui.fact.FactViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
@@ -21,15 +19,11 @@ import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
-import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.annotation.Config
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class FactViewModelTest {
