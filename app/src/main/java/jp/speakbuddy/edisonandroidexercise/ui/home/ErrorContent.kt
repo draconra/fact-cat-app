@@ -44,7 +44,13 @@ fun ErrorContent(error: String, onTryAgain: () -> Unit) {
                 onClick = onTryAgain,
                 modifier = Modifier.testTag(FactTestTag.TRY_AGAIN_BUTTON)
             ) {
-                Text(text = stringResource(R.string.try_again))
+                val buttonText =
+                    if (error == stringResource(id = R.string.no_fact_available)) {
+                        stringResource(id = R.string.update_fact)
+                    } else {
+                        stringResource(id = R.string.try_again)
+                    }
+                Text(text = buttonText)
             }
         }
     }

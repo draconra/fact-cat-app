@@ -14,11 +14,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import jp.speakbuddy.edisonandroidexercise.ui.home.LottieImageAnimation
 import kotlinx.coroutines.launch
 
 @Composable
-fun FactHistoryScreen(viewModel: FactHistoryViewModel = hiltViewModel()) {
+fun FactHistoryScreen(
+    viewModel: FactHistoryViewModel = hiltViewModel()
+) {
     val uiState by viewModel.uiState.collectAsState()
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
@@ -45,6 +48,7 @@ fun FactHistoryScreen(viewModel: FactHistoryViewModel = hiltViewModel()) {
                 }
             }
         }
+
         is FactHistoryUiState.Error, FactHistoryUiState.Empty -> NoFactsFound()
     }
 }

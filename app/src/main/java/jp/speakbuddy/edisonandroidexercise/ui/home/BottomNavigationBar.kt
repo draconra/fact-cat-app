@@ -19,7 +19,7 @@ fun BottomNavigationBar(navController: NavController) {
     val items = listOf(
         NavigationItem.Home,
         NavigationItem.History(historyIcon),
-        NavigationItem.About
+        NavigationItem.Search
     )
     BottomNavigation {
         val navBackStackEntry by navController.currentBackStackEntryAsState()

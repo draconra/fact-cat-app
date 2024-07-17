@@ -16,6 +16,5 @@ sealed class NavigationItem(
     data object Home : NavigationItem("home", R.string.home, Icons.Default.Home)
     data class History(val iconHistory: ImageVector) :
         NavigationItem("history", R.string.history, iconHistory)
-    data object About : NavigationItem("about", R.string.about, Icons.Default.Info)
     data object Search : NavigationItem("search", R.string.search, Icons.Default.Search)
 }
