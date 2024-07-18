@@ -13,7 +13,6 @@ android {
         minSdk = 24
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -37,6 +36,13 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/LICENSE-notice.md"
+            excludes += "META-INF/LICENSE.md"
+        }
     }
 }
 
@@ -64,7 +70,31 @@ dependencies {
     implementation(libs.coreKtx)
     implementation(libs.appcompat)
     implementation(libs.google.material)
+
+    // Testing
     testImplementation(libs.junit)
+    testImplementation(libs.junitJupiterApi)
+    testImplementation(libs.mockk)
+    testRuntimeOnly(libs.junitJupiterEngine)
     androidTestImplementation(libs.junitExt)
     androidTestImplementation(libs.espressoCore)
+    androidTestImplementation(libs.composeUiTestJunit4)
+    androidTestImplementation(libs.composeUiTestManifest)
+    androidTestImplementation(libs.coreTesting)
+    testImplementation(libs.coreTesting)
+    testImplementation(libs.coroutinesTest)
+    testRuntimeOnly(libs.junitVintage)
+    androidTestImplementation(libs.androidJUnit5)
+    androidTestImplementation(libs.androidJUnit5Runner)
+    androidTestImplementation(libs.hiltAndroidTesting)
+    androidTestImplementation(libs.mockkAndroid)
+    kaptAndroidTest(libs.hiltAndroid)
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
+
+kapt {
+    correctErrorTypes = true
 }

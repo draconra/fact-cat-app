@@ -13,7 +13,6 @@ android {
         minSdk = 24
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -38,6 +37,13 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/LICENSE-notice.md"
+            excludes += "META-INF/LICENSE.md"
+        }
+    }
 }
 
 dependencies {
@@ -49,9 +55,6 @@ dependencies {
     implementation(libs.coreKtx)
     implementation(libs.appcompat)
     implementation(libs.google.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.junitExt)
-    androidTestImplementation(libs.espressoCore)
 
     // Compose and UI
     implementation(libs.activityCompose)
@@ -67,4 +70,23 @@ dependencies {
     implementation(libs.hiltAndroid)
     implementation(libs.hiltNavigation)
     kapt(libs.hiltAndroidCompiler)
+
+    // Testing
+    testImplementation(libs.junit)
+    testImplementation(libs.junitJupiterApi)
+    testImplementation(libs.mockk)
+    testRuntimeOnly(libs.junitJupiterEngine)
+    androidTestImplementation(libs.junitExt)
+    androidTestImplementation(libs.espressoCore)
+    androidTestImplementation(libs.composeUiTestJunit4)
+    androidTestImplementation(libs.composeUiTestManifest)
+    androidTestImplementation(libs.coreTesting)
+    testImplementation(libs.coreTesting)
+    testImplementation(libs.coroutinesTest)
+    testRuntimeOnly(libs.junitVintage)
+    androidTestImplementation(libs.androidJUnit5)
+    androidTestImplementation(libs.androidJUnit5Runner)
+    androidTestImplementation(libs.hiltAndroidTesting)
+    androidTestImplementation(libs.mockkAndroid)
+    kaptAndroidTest(libs.hiltAndroid)
 }

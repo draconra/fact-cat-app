@@ -8,17 +8,17 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import io.mockk.coEvery
 import io.mockk.mockk
 import io.mockk.unmockkAll
-import jp.speakbuddy.edisonandroidexercise.model.FactListResponse
-import jp.speakbuddy.edisonandroidexercise.model.FactResponse
 import jp.speakbuddy.edisonandroidexercise.corenetwork.FactService
-import jp.speakbuddy.edisonandroidexercise.ui.search.SearchScreen
-import jp.speakbuddy.edisonandroidexercise.ui.search.SearchViewModel
+import jp.speakbuddy.edisonandroidexercise.corenetwork.model.FactListResponse
+import jp.speakbuddy.edisonandroidexercise.corenetwork.model.FactResponse
 import kotlinx.coroutines.test.runTest
 import org.junit.After
-import org.junit.Before
-import org.junit.Rule
+
 import org.junit.Test
 import org.junit.runner.RunWith
+
+import org.junit.Before
+import org.junit.Rule
 
 @RunWith(AndroidJUnit4::class)
 class SearchScreenTest {
@@ -26,7 +26,7 @@ class SearchScreenTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    private val factService: jp.speakbuddy.edisonandroidexercise.corenetwork.FactService = mockk()
+    private val factService: FactService = mockk()
 
     private lateinit var viewModel: SearchViewModel
 

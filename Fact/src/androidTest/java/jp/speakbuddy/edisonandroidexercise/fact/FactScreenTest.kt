@@ -1,17 +1,15 @@
 package jp.speakbuddy.edisonandroidexercise.fact
 
-import androidx.activity.compose.setContent
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import io.mockk.coEvery
 import io.mockk.mockk
-import jp.speakbuddy.edisonandroidexercise.MainActivity
-import jp.speakbuddy.edisonandroidexercise.di.DataStoreRepository
-import jp.speakbuddy.edisonandroidexercise.network.FactService
-import jp.speakbuddy.edisonandroidexercise.ui.home.HomeTestTag
-import jp.speakbuddy.edisonandroidexercise.ui.theme.EdisonAndroidExerciseTheme
+import jp.speakbuddy.edisonandroidexercise.corenetwork.FactService
+import jp.speakbuddy.edisonandroidexercise.corenetwork.di.DataStoreRepository
+import jp.speakbuddy.edisonandroidexercise.coreui.CoreTestTag
+import jp.speakbuddy.edisonandroidexercise.coreui.theme.EdisonAndroidExerciseTheme
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Rule
 import org.junit.Test
@@ -21,7 +19,7 @@ import org.junit.runner.RunWith
 class FactScreenTest {
 
     @get:Rule
-    val composeTestRule = createAndroidComposeRule<MainActivity>()
+    val composeTestRule = createComposeRule()
 
     private val factService: FactService = mockk()
     private val dataStoreRepository: DataStoreRepository = mockk()
@@ -31,7 +29,7 @@ class FactScreenTest {
         val expectedFact = "Stored Fact"
         coEvery { dataStoreRepository.lastFact } returns flowOf(expectedFact)
 
-        composeTestRule.activity.setContent {
+        composeTestRule.setContent {
             EdisonAndroidExerciseTheme {
                 FactScreen(
                     viewModel = FakeLoadingFactViewModel(
@@ -43,8 +41,8 @@ class FactScreenTest {
         }
 
         composeTestRule.onNodeWithTag(FactTestTag.FACT_BODY).assertDoesNotExist()
-        composeTestRule.onNodeWithTag(HomeTestTag.ERROR_CONTENT).assertDoesNotExist()
-        composeTestRule.onNodeWithTag(HomeTestTag.LOTTIE_ANIMATION).assertIsDisplayed()
+        composeTestRule.onNodeWithTag(CoreTestTag.ERROR_CONTENT).assertDoesNotExist()
+        composeTestRule.onNodeWithTag(CoreTestTag.LOTTIE_ANIMATION).assertIsDisplayed()
     }
 
     @Test
@@ -52,7 +50,7 @@ class FactScreenTest {
         val expectedFact = "Stored Fact"
         coEvery { dataStoreRepository.lastFact } returns flowOf(expectedFact)
 
-        composeTestRule.activity.setContent {
+        composeTestRule.setContent {
             EdisonAndroidExerciseTheme {
                 FactScreen(
                     viewModel = FakeSuccessFactViewModel(
@@ -72,7 +70,7 @@ class FactScreenTest {
         val expectedFact = "Stored Fact"
         coEvery { dataStoreRepository.lastFact } returns flowOf(expectedFact)
 
-        composeTestRule.activity.setContent {
+        composeTestRule.setContent {
             EdisonAndroidExerciseTheme {
                 FactScreen(
                     viewModel = FakeErrorFactViewModel(
@@ -83,7 +81,7 @@ class FactScreenTest {
             }
         }
 
-        composeTestRule.onNodeWithTag(HomeTestTag.ERROR_CONTENT).assertIsDisplayed()
-        composeTestRule.onNodeWithTag(HomeTestTag.TRY_AGAIN_BUTTON).assertIsDisplayed()
+        composeTestRule.onNodeWithTag(CoreTestTag.ERROR_CONTENT).assertIsDisplayed()
+        composeTestRule.onNodeWithTag(CoreTestTag.TRY_AGAIN_BUTTON).assertIsDisplayed()
     }
 }

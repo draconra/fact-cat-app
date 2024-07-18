@@ -1,13 +1,11 @@
 package jp.speakbuddy.edisonandroidexercise.history
 
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import jp.speakbuddy.edisonandroidexercise.ui.history.FactHistoryCard
-import jp.speakbuddy.edisonandroidexercise.ui.history.FactHistoryScreen
-import jp.speakbuddy.edisonandroidexercise.ui.history.FactHistoryTestTags
-import jp.speakbuddy.edisonandroidexercise.ui.history.FactHistoryViewModel
+import jp.speakbuddy.edisonandroidexercise.coreui.CoreTestTag
 import jp.speakbuddy.edisonandroidexercise.coreui.theme.EdisonAndroidExerciseTheme
 import org.junit.Rule
 import org.junit.Test
@@ -22,18 +20,18 @@ class FactHistoryScreenTest {
     @Test
     fun factHistoryScreen_displaysNoFactsFound_whenHistoryIsEmpty() {
         composeTestRule.setContent {
-            jp.speakbuddy.edisonandroidexercise.coreui.theme.EdisonAndroidExerciseTheme {
+            EdisonAndroidExerciseTheme {
                 FactHistoryScreen(viewModel = FakeEmptyFactHistoryViewModel())
             }
         }
 
-        composeTestRule.onNodeWithTag(FactHistoryTestTags.NO_FACTS_FOUND).assertExists()
+        composeTestRule.onNodeWithTag(CoreTestTag.NO_FACTS_FOUND).assertExists()
     }
 
     @Test
     fun factHistoryScreen_displaysFactHistory_whenHistoryIsNotEmpty() {
         composeTestRule.setContent {
-            jp.speakbuddy.edisonandroidexercise.coreui.theme.EdisonAndroidExerciseTheme {
+            EdisonAndroidExerciseTheme {
                 FactHistoryScreen(viewModel = FakeFactHistoryViewModel())
             }
         }
@@ -49,7 +47,7 @@ class FactHistoryScreenTest {
                 "This fact is specifically designed to be long enough " +
                 "to trigger the length condition and contains the word cats multiple times."
         composeTestRule.setContent {
-            jp.speakbuddy.edisonandroidexercise.coreui.theme.EdisonAndroidExerciseTheme {
+            EdisonAndroidExerciseTheme {
                 FactHistoryCard(fact = fact)
             }
         }

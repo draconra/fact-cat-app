@@ -1,10 +1,10 @@
-package jp.speakbuddy.edisonandroidexercise.ui.history
+package jp.speakbuddy.edisonandroidexercise.history
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import io.mockk.coEvery
 import io.mockk.mockk
 import io.mockk.unmockkAll
-import jp.speakbuddy.edisonandroidexercise.di.DataStoreRepository
+import jp.speakbuddy.edisonandroidexercise.corenetwork.di.DataStoreRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow

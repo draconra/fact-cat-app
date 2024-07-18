@@ -7,9 +7,9 @@ import io.mockk.coVerify
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.unmockkAll
-import jp.speakbuddy.edisonandroidexercise.di.DataStoreRepository
-import jp.speakbuddy.edisonandroidexercise.model.FactResponse
-import jp.speakbuddy.edisonandroidexercise.network.FactService
+import jp.speakbuddy.edisonandroidexercise.corenetwork.FactService
+import jp.speakbuddy.edisonandroidexercise.corenetwork.di.DataStoreRepository
+import jp.speakbuddy.edisonandroidexercise.corenetwork.model.FactResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
@@ -65,8 +65,8 @@ class FactViewModelTest {
         advanceUntilIdle()
 
         val uiState = viewModel.uiState.value
-        assertTrue(uiState is jp.speakbuddy.edisonandroidexercise.fact.FactUiState.Success)
-        assertEquals(expectedFact, (uiState as jp.speakbuddy.edisonandroidexercise.fact.FactUiState.Success).fact)
+        assertTrue(uiState is FactUiState.Success)
+        assertEquals(expectedFact, (uiState as FactUiState.Success).fact)
     }
 
     @Test
@@ -82,8 +82,8 @@ class FactViewModelTest {
         advanceUntilIdle()
 
         val uiState = viewModel.uiState.value
-        assertTrue(uiState is jp.speakbuddy.edisonandroidexercise.fact.FactUiState.Success)
-        assertEquals(newFact, (uiState as jp.speakbuddy.edisonandroidexercise.fact.FactUiState.Success).fact)
+        assertTrue(uiState is FactUiState.Success)
+        assertEquals(newFact, (uiState as FactUiState.Success).fact)
         assertEquals(false, uiState.showCatsDialog)
 
         coVerify { dataStoreRepository.saveLastFact(newFact) }
@@ -100,8 +100,8 @@ class FactViewModelTest {
         advanceUntilIdle()
 
         val uiState = viewModel.uiState.value
-        assertTrue(uiState is jp.speakbuddy.edisonandroidexercise.fact.FactUiState.Error)
-        assertEquals(errorMessage, (uiState as jp.speakbuddy.edisonandroidexercise.fact.FactUiState.Error).error)
+        assertTrue(uiState is FactUiState.Error)
+        assertEquals(errorMessage, (uiState as FactUiState.Error).error)
     }
 
     @Test
@@ -117,8 +117,8 @@ class FactViewModelTest {
         advanceUntilIdle()
 
         val uiState = viewModel.uiState.value
-        assertTrue(uiState is jp.speakbuddy.edisonandroidexercise.fact.FactUiState.Success)
-        assertEquals(newFact, (uiState as jp.speakbuddy.edisonandroidexercise.fact.FactUiState.Success).fact)
+        assertTrue(uiState is FactUiState.Success)
+        assertEquals(newFact, (uiState as FactUiState.Success).fact)
         assertEquals(true, uiState.showCatsDialog)
     }
 }

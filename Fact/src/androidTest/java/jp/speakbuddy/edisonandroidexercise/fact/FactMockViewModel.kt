@@ -1,7 +1,7 @@
 package jp.speakbuddy.edisonandroidexercise.fact
 
-import jp.speakbuddy.edisonandroidexercise.di.DataStoreRepository
-import jp.speakbuddy.edisonandroidexercise.network.FactService
+import jp.speakbuddy.edisonandroidexercise.corenetwork.FactService
+import jp.speakbuddy.edisonandroidexercise.corenetwork.di.DataStoreRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
