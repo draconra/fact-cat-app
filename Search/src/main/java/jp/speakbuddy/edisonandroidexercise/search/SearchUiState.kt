@@ -1,4 +1,4 @@
-package jp.speakbuddy.edisonandroidexercise.ui.search
+package jp.speakbuddy.edisonandroidexercise.search
 
 import jp.speakbuddy.edisonandroidexercise.corenetwork.model.FactResponse
 

@@ -4,9 +4,5 @@
     <string name="error_message">something went wrong. error = %1$s</string>
     <string name="home">Home</string>
     <string name="history">History</string>
-    <string name="about">About</string>
     <string name="search">Search</string>
-    <string name="enter_query">Enter a query to search for cat facts.</string>
-    <string name="search_for_cat_facts">Search for cat facts</string>
-    <string name="no_search_found">"No facts found for query: %1$s"</string>
 </resources>

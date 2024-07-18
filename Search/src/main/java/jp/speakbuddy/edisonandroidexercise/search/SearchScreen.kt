@@ -1,4 +1,4 @@
-package jp.speakbuddy.edisonandroidexercise.ui.search
+package jp.speakbuddy.edisonandroidexercise.search
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -24,7 +24,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import jp.speakbuddy.edisonandroidexercise.R
 import jp.speakbuddy.edisonandroidexercise.coreui.LottieImageAnimation
 
 @Composable
@@ -76,7 +75,7 @@ fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
             }
 
             is SearchUiState.Loading -> {
-                jp.speakbuddy.edisonandroidexercise.coreui.LottieImageAnimation()
+                LottieImageAnimation()
             }
 
             is SearchUiState.Success -> {

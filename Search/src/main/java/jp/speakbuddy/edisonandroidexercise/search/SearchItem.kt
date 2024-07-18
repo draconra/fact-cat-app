@@ -1,4 +1,4 @@
-package jp.speakbuddy.edisonandroidexercise.ui.search
+package jp.speakbuddy.edisonandroidexercise.search
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items

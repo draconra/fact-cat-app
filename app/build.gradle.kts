@@ -90,6 +90,7 @@ dependencies {
     //Module
     implementation(project(":Fact"))
     implementation(project(":History"))
+    implementation(project(":Search"))
     implementation(project(":Core-Network"))
     implementation(project(":Core-UI"))
 
@@ -103,10 +104,8 @@ dependencies {
     implementation(libs.composeUi)
     implementation(libs.composeUiToolingPreview)
     implementation(libs.material3)
-    implementation(libs.navigationCompose)
-    implementation(libs.foundation)
     implementation(libs.material)
-    implementation(libs.lottie)
+    implementation(libs.navigationCompose)
 
     // DataStore and Protobuf
     implementation(libs.datastorePreferences)

@@ -12,7 +12,7 @@ import androidx.navigation.compose.composable
 import jp.speakbuddy.edisonandroidexercise.R
 import jp.speakbuddy.edisonandroidexercise.fact.FactScreen
 import jp.speakbuddy.edisonandroidexercise.history.FactHistoryScreen
-import jp.speakbuddy.edisonandroidexercise.ui.search.SearchScreen
+import jp.speakbuddy.edisonandroidexercise.search.SearchScreen
 
 @Composable
 fun MainNavigation(
