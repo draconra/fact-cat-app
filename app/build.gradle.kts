@@ -86,6 +86,12 @@ protobuf {
 }
 
 dependencies {
+
+    //Module
+    implementation(project(":Fact"))
+    implementation(project(":Core-Network"))
+    implementation(project(":Core-UI"))
+
     // Core and Kotlin
     implementation(libs.coreKtx)
     implementation(libs.lifecycleRuntime)
@@ -130,7 +136,6 @@ dependencies {
     androidTestImplementation(libs.espressoCore)
     androidTestImplementation(libs.composeUiTestJunit4)
     androidTestImplementation(libs.coreTesting)
-    testImplementation(libs.robolectric)
     testImplementation(libs.coreTesting)
     testImplementation(libs.coroutinesTest)
     testRuntimeOnly(libs.junitVintage)

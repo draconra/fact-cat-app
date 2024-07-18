@@ -35,6 +35,8 @@ chucker = "4.0.0"
 googleService = "4.4.2"
 firebase-bom = "33.1.2"
 androidJUnit5 = "1.4.0"
+appcompat = "1.6.1"
+material = "1.10.0"
 
 # Library dependencies
 [libraries]
@@ -98,6 +100,8 @@ chuckerNoOp = { module = "com.github.chuckerteam.chucker:library-no-op", version
 # Firebase
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+google-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 # Plugins
 [plugins]

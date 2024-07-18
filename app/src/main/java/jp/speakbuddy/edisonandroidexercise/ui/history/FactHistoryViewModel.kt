@@ -3,7 +3,7 @@ package jp.speakbuddy.edisonandroidexercise.ui.history
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jp.speakbuddy.edisonandroidexercise.di.DataStoreRepository
+import jp.speakbuddy.edisonandroidexercise.corenetwork.di.DataStoreRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

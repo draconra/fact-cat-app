@@ -1,6 +1,6 @@
 package jp.speakbuddy.edisonandroidexercise.ui.search
 
-import jp.speakbuddy.edisonandroidexercise.model.FactResponse
+import jp.speakbuddy.edisonandroidexercise.corenetwork.model.FactResponse
 
 sealed class SearchUiState {
     data object Idle : SearchUiState()

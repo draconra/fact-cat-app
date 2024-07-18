@@ -8,7 +8,7 @@ import jp.speakbuddy.edisonandroidexercise.ui.history.FactHistoryCard
 import jp.speakbuddy.edisonandroidexercise.ui.history.FactHistoryScreen
 import jp.speakbuddy.edisonandroidexercise.ui.history.FactHistoryTestTags
 import jp.speakbuddy.edisonandroidexercise.ui.history.FactHistoryViewModel
-import jp.speakbuddy.edisonandroidexercise.ui.theme.EdisonAndroidExerciseTheme
+import jp.speakbuddy.edisonandroidexercise.coreui.theme.EdisonAndroidExerciseTheme
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,7 +22,7 @@ class FactHistoryScreenTest {
     @Test
     fun factHistoryScreen_displaysNoFactsFound_whenHistoryIsEmpty() {
         composeTestRule.setContent {
-            EdisonAndroidExerciseTheme {
+            jp.speakbuddy.edisonandroidexercise.coreui.theme.EdisonAndroidExerciseTheme {
                 FactHistoryScreen(viewModel = FakeEmptyFactHistoryViewModel())
             }
         }
@@ -33,7 +33,7 @@ class FactHistoryScreenTest {
     @Test
     fun factHistoryScreen_displaysFactHistory_whenHistoryIsNotEmpty() {
         composeTestRule.setContent {
-            EdisonAndroidExerciseTheme {
+            jp.speakbuddy.edisonandroidexercise.coreui.theme.EdisonAndroidExerciseTheme {
                 FactHistoryScreen(viewModel = FakeFactHistoryViewModel())
             }
         }
@@ -49,7 +49,7 @@ class FactHistoryScreenTest {
                 "This fact is specifically designed to be long enough " +
                 "to trigger the length condition and contains the word cats multiple times."
         composeTestRule.setContent {
-            EdisonAndroidExerciseTheme {
+            jp.speakbuddy.edisonandroidexercise.coreui.theme.EdisonAndroidExerciseTheme {
                 FactHistoryCard(fact = fact)
             }
         }

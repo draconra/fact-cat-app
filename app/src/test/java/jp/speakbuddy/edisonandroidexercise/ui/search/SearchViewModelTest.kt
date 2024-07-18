@@ -6,7 +6,7 @@ import io.mockk.mockk
 import io.mockk.unmockkAll
 import jp.speakbuddy.edisonandroidexercise.model.FactListResponse
 import jp.speakbuddy.edisonandroidexercise.model.FactResponse
-import jp.speakbuddy.edisonandroidexercise.network.FactService
+import jp.speakbuddy.edisonandroidexercise.corenetwork.FactService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -26,7 +26,7 @@ class SearchViewModelTest {
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private val factService: FactService = mockk()
+    private val factService: jp.speakbuddy.edisonandroidexercise.corenetwork.FactService = mockk()
 
     private lateinit var viewModel: SearchViewModel
 

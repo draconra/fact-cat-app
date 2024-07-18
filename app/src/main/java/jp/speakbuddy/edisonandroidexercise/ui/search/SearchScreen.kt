@@ -25,7 +25,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import jp.speakbuddy.edisonandroidexercise.R
-import jp.speakbuddy.edisonandroidexercise.ui.home.LottieImageAnimation
+import jp.speakbuddy.edisonandroidexercise.coreui.LottieImageAnimation
 
 @Composable
 fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
@@ -76,7 +76,7 @@ fun SearchScreen(viewModel: SearchViewModel = hiltViewModel()) {
             }
 
             is SearchUiState.Loading -> {
-                LottieImageAnimation()
+                jp.speakbuddy.edisonandroidexercise.coreui.LottieImageAnimation()
             }
 
             is SearchUiState.Success -> {

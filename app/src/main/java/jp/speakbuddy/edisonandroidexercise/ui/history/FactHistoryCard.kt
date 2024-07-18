@@ -14,15 +14,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import jp.speakbuddy.edisonandroidexercise.R
-import jp.speakbuddy.edisonandroidexercise.util.containsCats
-import jp.speakbuddy.edisonandroidexercise.util.isLongFact
+import jp.speakbuddy.edisonandroidexercise.coreui.R as coreR
 
 @Composable
 fun FactHistoryCard(fact: String) {
     val factLength = fact.length
-    val isLong = isLongFact(fact)
-    val containsCats = containsCats(fact)
+    val isLong = jp.speakbuddy.edisonandroidexercise.coreui.util.isLongFact(fact)
+    val containsCats = jp.speakbuddy.edisonandroidexercise.coreui.util.containsCats(fact)
 
     Card(
         modifier = Modifier
@@ -44,7 +42,7 @@ fun FactHistoryCard(fact: String) {
             )
             if (isLong) {
                 Text(
-                    text = stringResource(id = R.string.fact_length, factLength),
+                    text = stringResource(id = coreR.string.fact_length, factLength),
                     style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
                     modifier = Modifier
                         .padding(bottom = 4.dp)
@@ -53,7 +51,7 @@ fun FactHistoryCard(fact: String) {
             }
             if (containsCats) {
                 Text(
-                    text = stringResource(id = R.string.multiple_cats),
+                    text = stringResource(id = coreR.string.multiple_cats),
                     style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
                     modifier = Modifier
                         .padding(bottom = 4.dp)

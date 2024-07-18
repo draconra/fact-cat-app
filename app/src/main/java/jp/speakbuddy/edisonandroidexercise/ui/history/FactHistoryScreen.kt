@@ -14,8 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import jp.speakbuddy.edisonandroidexercise.ui.home.LottieImageAnimation
+import jp.speakbuddy.edisonandroidexercise.coreui.NoFactsFound
 import kotlinx.coroutines.launch
 
 @Composable
@@ -34,7 +33,7 @@ fun FactHistoryScreen(
     }
 
     when (uiState) {
-        is FactHistoryUiState.Loading -> LottieImageAnimation()
+        is FactHistoryUiState.Loading -> jp.speakbuddy.edisonandroidexercise.coreui.LottieImageAnimation()
         is FactHistoryUiState.Success -> {
             LazyColumn(
                 state = listState,

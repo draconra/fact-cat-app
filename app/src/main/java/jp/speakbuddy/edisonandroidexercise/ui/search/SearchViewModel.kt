@@ -3,7 +3,7 @@ package jp.speakbuddy.edisonandroidexercise.ui.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jp.speakbuddy.edisonandroidexercise.network.FactService
+import jp.speakbuddy.edisonandroidexercise.corenetwork.FactService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

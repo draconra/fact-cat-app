@@ -10,7 +10,7 @@ import io.mockk.mockk
 import io.mockk.unmockkAll
 import jp.speakbuddy.edisonandroidexercise.model.FactListResponse
 import jp.speakbuddy.edisonandroidexercise.model.FactResponse
-import jp.speakbuddy.edisonandroidexercise.network.FactService
+import jp.speakbuddy.edisonandroidexercise.corenetwork.FactService
 import jp.speakbuddy.edisonandroidexercise.ui.search.SearchScreen
 import jp.speakbuddy.edisonandroidexercise.ui.search.SearchViewModel
 import kotlinx.coroutines.test.runTest
@@ -26,7 +26,7 @@ class SearchScreenTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    private val factService: FactService = mockk()
+    private val factService: jp.speakbuddy.edisonandroidexercise.corenetwork.FactService = mockk()
 
     private lateinit var viewModel: SearchViewModel
 
