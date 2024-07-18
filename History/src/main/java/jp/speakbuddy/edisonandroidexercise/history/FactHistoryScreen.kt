@@ -1,4 +1,4 @@
-package jp.speakbuddy.edisonandroidexercise.ui.history
+package jp.speakbuddy.edisonandroidexercise.history
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding

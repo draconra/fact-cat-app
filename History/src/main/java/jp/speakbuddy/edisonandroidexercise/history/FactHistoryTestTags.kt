@@ -1,4 +1,4 @@
-package jp.speakbuddy.edisonandroidexercise.ui.history
+package jp.speakbuddy.edisonandroidexercise.history
 
 object FactHistoryTestTags {
     const val FACT_HISTORY_LIST = "FactHistoryList"

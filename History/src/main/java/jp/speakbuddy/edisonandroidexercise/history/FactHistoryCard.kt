@@ -1,4 +1,4 @@
-package jp.speakbuddy.edisonandroidexercise.ui.history
+package jp.speakbuddy.edisonandroidexercise.history
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,13 +14,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import jp.speakbuddy.edisonandroidexercise.coreui.util.containsCats
+import jp.speakbuddy.edisonandroidexercise.coreui.util.isLongFact
 import jp.speakbuddy.edisonandroidexercise.coreui.R as coreR
 
 @Composable
 fun FactHistoryCard(fact: String) {
     val factLength = fact.length
-    val isLong = jp.speakbuddy.edisonandroidexercise.coreui.util.isLongFact(fact)
-    val containsCats = jp.speakbuddy.edisonandroidexercise.coreui.util.containsCats(fact)
+    val isLong = isLongFact(fact)
+    val containsCats = containsCats(fact)
 
     Card(
         modifier = Modifier

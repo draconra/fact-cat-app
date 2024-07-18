@@ -89,6 +89,7 @@ dependencies {
 
     //Module
     implementation(project(":Fact"))
+    implementation(project(":History"))
     implementation(project(":Core-Network"))
     implementation(project(":Core-UI"))
 
