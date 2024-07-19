@@ -1,0 +1,126 @@
+name: Start Release PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      releaseType:
+        description: 'Release Type'
+        type: choice
+        required: true
+        options:
+          - Alpha
+          - Beta
+
+jobs:
+  open-pr:
+    name: Open PR
+    runs-on: ubuntu-latest
+    steps:
+      - uses: haya14busa/action-cond@v1
+        name: Setup Base Branch
+        id: base-branch
+        with:
+          cond: ${{ inputs.releaseType == 'Alpha' }}
+          if_true: "pre-develop"
+          if_false: "develop"
+
+      - uses: haya14busa/action-cond@v1
+        name: Setup Target Branch
+        id: target-branch
+        with:
+          cond: ${{ inputs.releaseType == 'Alpha' }}
+          if_true: "develop"
+          if_false: "master"
+
+      - uses: actions/checkout@v4
+        name: Checking out repository
+        with:
+          ref: ${{ steps.base-branch.outputs.value }}
+          fetch-depth: 0
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - uses: fwilhe2/setup-kotlin@main
+        name: Setup Kotlin 1.9.22
+        with:
+          version: 1.9.22
+
+#      - name: Extract Version Code and Version Name
+#        run: kotlin scripts/extract-version-code-and-name.main.kts
+#
+#      - name: Set Version Code and Version Name to Env
+#        run: kotlin scripts/parse-and-set-version-env.main.kts
+
+      - uses: haya14busa/action-cond@v1
+        id: title-label
+        with:
+          cond: ${{ inputs.releaseType == 'Alpha' }}
+          if_true: "Alpha Release Candidate ${{ env.VERSION_NAME }}"
+          if_false: "Release Candidate ${{ env.VERSION_NAME }}"
+
+      - name: Get Latest Tag
+        id: latest-tag
+        uses: WyriHaximus/github-action-get-previous-tag@v1
+
+      - name: Build Changelog
+        id: build-changelog
+        uses: mikepenz/release-changelog-builder-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+        with:
+          fromTag:  ${{ steps.latest-tag.outputs.tag }}
+          toTag: ${{ github.sha }}
+          configurationJson: |
+            {
+              "template": "#{{CHANGELOG}}\n\n<details>\n<summary>Uncategorized</summary>\n\n#{{UNCATEGORIZED}}\n</details>",
+              "categories": [
+                {
+                    "title": "## 🚀 New Feature & Enhancement",
+                    "labels": ["New Feature", "App-Version-Update", "Compose-UI", "Dark Mode", "Enhancement", "Tech Debt", "Tech Improvement", "Refactor", "UI"]
+                },
+                {
+                    "title": "## 📦 Dependencies Update",
+                    "labels": ["dependencies"]
+                },
+                {
+                    "title": "## 🐛 Fixes",
+                    "labels": ["Bug"]
+                },
+                {
+                    "title": "## 🧬 CI",
+                    "labels": ["CI"]
+                },
+                {
+                    "title": "## 🧪 Test",
+                    "labels": ["Test"]
+                }
+              ]
+            }
+
+      - name: Install GitHub CLI
+        run: |
+          sudo apt install gh
+
+      - name: Authenticate GitHub CLI
+        run: |
+          unset GITHUB_TOKEN
+          echo "${{ secrets.GIT_TOKEN }}" | gh auth login --with-token
+
+      - name: Create Pull Request
+        run: |
+          gh pr create \
+            --base "${{ steps.target-branch.outputs.value }}" \
+            --head "${{ steps.base-branch.outputs.value }}" \
+            --title "${{ steps.title-label.outputs.value }}" \
+            --body "${{ steps.build-changelog.outputs.changelog }}" \
+            --assignee "draconra" \
+            --label "Release Candidate" \
+            --milestone "${{ env.VERSION_NAME }}" \
+            --draft=false
+        env:
+          GITHUB_TOKEN: ""
+
