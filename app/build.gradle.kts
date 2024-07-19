@@ -66,27 +66,7 @@ android {
     }
 }
 
-// Setup protobuf configuration, generating lite Java and Kotlin classes
-protobuf {
-    protoc {
-        artifact = "com.google.protobuf:protoc:22.0"
-    }
-    generateProtoTasks {
-        all().forEach { task ->
-            task.builtins {
-                val java by registering {
-                    option("lite")
-                }
-                val kotlin by registering {
-                    option("lite")
-                }
-            }
-        }
-    }
-}
-
 dependencies {
-
     //Module
     implementation(project(":Fact"))
     implementation(project(":History"))
@@ -97,7 +77,6 @@ dependencies {
     // Core and Kotlin
     implementation(libs.coreKtx)
     implementation(libs.lifecycleRuntime)
-    implementation(libs.liveDataRuntime)
 
     // Compose and UI
     implementation(libs.activityCompose)
@@ -107,55 +86,12 @@ dependencies {
     implementation(libs.material)
     implementation(libs.navigationCompose)
 
-    // DataStore and Protobuf
-    implementation(libs.datastorePreferences)
-    implementation(libs.datastore)
-    implementation(libs.protobufKotlinLite)
-
     // Dependency Injection
     implementation(libs.hiltAndroid)
     implementation(libs.hiltNavigation)
     kapt(libs.hiltAndroidCompiler)
 
-    // Networking and Serialization
-    implementation(libs.kotlinxSerializationJson)
-    implementation(libs.retrofitConverter)
-    implementation(libs.okhttp)
-    implementation(libs.retrofit)
-
     // Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.crashlytics)
-
-    // Testing
-    testImplementation(libs.junit)
-    testImplementation(libs.junitJupiterApi)
-    testImplementation(libs.mockk)
-    testRuntimeOnly(libs.junitJupiterEngine)
-    androidTestImplementation(libs.junitExt)
-    androidTestImplementation(libs.espressoCore)
-    androidTestImplementation(libs.composeUiTestJunit4)
-    androidTestImplementation(libs.coreTesting)
-    testImplementation(libs.coreTesting)
-    testImplementation(libs.coroutinesTest)
-    testRuntimeOnly(libs.junitVintage)
-    androidTestImplementation(libs.androidJUnit5)
-    androidTestImplementation(libs.androidJUnit5Runner)
-    androidTestImplementation(libs.hiltAndroidTesting)
-    androidTestImplementation(libs.mockkAndroid)
-    kaptAndroidTest(libs.hiltAndroid)
-
-    // Debugging
-    debugImplementation(libs.composeUiTooling)
-    debugImplementation(libs.composeUiTestManifest)
-    debugImplementation(libs.chucker)
-    releaseImplementation(libs.chuckerNoOp)
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
-kapt {
-    correctErrorTypes = true
 }

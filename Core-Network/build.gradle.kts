@@ -35,14 +35,6 @@ android {
 }
 
 dependencies {
-
-    implementation(libs.coreKtx)
-    implementation(libs.appcompat)
-    implementation(libs.google.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.junitExt)
-    androidTestImplementation(libs.espressoCore)
-
     // DataStore and Protobuf
     implementation(libs.datastorePreferences)
     implementation(libs.datastore)

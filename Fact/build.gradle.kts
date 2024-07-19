@@ -47,7 +47,6 @@ android {
 }
 
 dependencies {
-
     //Module
     implementation(project(":Core-UI"))
     implementation(project(":Core-Network"))
@@ -76,15 +75,12 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.junitJupiterApi)
     androidTestImplementation(libs.junitExt)
-    androidTestImplementation(libs.espressoCore)
     testImplementation(libs.mockk)
-    testRuntimeOnly(libs.junitJupiterEngine)
     androidTestImplementation(libs.composeUiTestJunit4)
     androidTestImplementation(libs.composeUiTestManifest)
     androidTestImplementation(libs.coreTesting)
     testImplementation(libs.coreTesting)
     testImplementation(libs.coroutinesTest)
-    testRuntimeOnly(libs.junitVintage)
     androidTestImplementation(libs.mockkAndroid)
 
 }
