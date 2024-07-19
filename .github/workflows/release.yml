@@ -49,7 +49,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GIT_TOKEN }}
           branch: ${{ github.event.inputs.source_branch }}
           base: ${{ env.target_branch }}
           title: "${{ github.event.inputs.release_type }} Release: Version ${{ env.version_name }}"
