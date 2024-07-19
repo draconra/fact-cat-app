@@ -6,31 +6,38 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import jp.speakbuddy.edisonandroidexercise.R
 
 @Composable
-fun BottomNavigationBar(navController: NavController) {
-    val historyIcon = ImageVector.vectorResource(id = R.drawable.ic_history)
-    val items = listOf(
-        NavigationItem.Home,
-        NavigationItem.History(historyIcon),
-        NavigationItem.Search
-    )
+fun BottomNavigationBar(
+    screens: List<ScreenModel.NavigationItem>,
+    navController: NavController
+) {
     BottomNavigation {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentRoute = navBackStackEntry?.destination?.route
-        items.forEach { item ->
+        screens.forEach { screens ->
+            val currentRoute = navBackStackEntry?.destination?.route
+            val selected = currentRoute == screens.route
             BottomNavigationItem(
-                icon = { Icon(item.icon, contentDescription = stringResource(id = item.label)) },
-                label = { Text(stringResource(id = item.label)) },
-                selected = currentRoute == item.route,
+                icon = {
+                    Icon(
+                        screens.icon,
+                        contentDescription = stringResource(id = screens.label),
+                        tint = if (selected) Color.White else Color.Black
+                    )
+                },
+                label = {
+                    Text(
+                        text = stringResource(id = screens.label),
+                        color = if (selected) Color.White else Color.Black
+                    )
+                },
+                selected = currentRoute == screens.route,
                 onClick = {
-                    navController.navigate(item.route) {
+                    navController.navigate(screens.route) {
                         popUpTo(navController.graph.startDestinationId) {
                             saveState = true
                         }

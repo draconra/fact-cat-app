@@ -23,11 +23,11 @@ fun MainNavigation(
     val historyIcon = ImageVector.vectorResource(id = R.drawable.ic_history)
     NavHost(
         navController,
-        startDestination = NavigationItem.Home.route,
+        startDestination = ScreenModel.NavigationItem.Home.route,
         modifier.padding(contentPadding)
     ) {
-        composable(NavigationItem.Home.route) { FactScreen() }
-        composable(NavigationItem.History(historyIcon).route) { FactHistoryScreen() }
-        composable(NavigationItem.Search.route) { SearchScreen() }
+        composable(ScreenModel.NavigationItem.Home.route) { FactScreen() }
+        composable(ScreenModel.NavigationItem.History(historyIcon).route) { FactHistoryScreen() }
+        composable(ScreenModel.NavigationItem.Search.route) { SearchScreen() }
     }
 }
