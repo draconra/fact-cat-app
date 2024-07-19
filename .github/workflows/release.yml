@@ -1,4 +1,4 @@
-name: Release Deployment
+name: Release
 
 on:
   workflow_dispatch:
@@ -7,69 +7,46 @@ on:
         description: 'Release type (alpha or beta)'
         required: true
         default: 'alpha'
-        type: string
       source_branch:
-        description: 'Source branch to create the PR from'
+        description: 'Source branch for the release'
         required: true
         default: 'pre-develop'
-        type: string
 
 jobs:
-  release-deployment:
+  release:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-      - name: Set up Git
-        run: |
-          git config --global user.name 'github-actions'
-          git config --global user.email 'github-actions@github.com'
-
-      - name: Determine Target Branch
-        id: target-branch
-        run: |
-          if [ "${{ github.event.inputs.release_type }}" == "alpha" ]; then
-            echo "::set-output name=target_branch::develop"
-          elif [ "${{ github.event.inputs.release_type }}" == "beta" ]; then
-            echo "::set-output name=target_branch::main"
-          else
-            echo "Invalid release type specified" >&2
-            exit 1
-          fi
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '17'
 
       - name: Update CHANGELOG.md
         run: |
           chmod +x scripts/update_changelog.sh
           ./scripts/update_changelog.sh
 
+      - name: Determine target branch
+        id: determine_target
+        run: |
+          if [ "${{ github.event.inputs.release_type }}" == "alpha" ]; then
+            echo "target_branch=develop" >> $GITHUB_ENV
+          else
+            echo "target_branch=main" >> $GITHUB_ENV
+          fi
+
       - name: Create Pull Request
-        id: create_pr
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           source: ${{ github.event.inputs.source_branch }}
-          target: ${{ steps.target-branch.outputs.target_branch }}
-          title: '${{ github.event.inputs.release_type | title }} Release: ${{ github.sha }}'
+          target: ${{ env.target_branch }}
+          title:
+            ${{ github.event.inputs.release_type }} Release: ${{ github.sha }}
           body: 'This PR is created by GitHub Actions for ${{ github.event.inputs.release_type }} release.'
           labels: ${{ github.event.inputs.release_type }}
-
-      - name: Generate Release Notes
-        id: release_notes
-        uses: release-drafter/release-drafter@v5
-        with:
-          config-name: release-drafter.yml
-
-      - name: Add Release Notes to PR Comment
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const pr_number = ${{ steps.create_pr.outputs.pull-request-number }};
-            const release_notes = `## What's Changed\n${{ steps.release_notes.outputs.changes }}`;
-            await github.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: pr_number,
-              body: release_notes
-            });
