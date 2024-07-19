@@ -10,9 +10,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import jp.speakbuddy.edisonandroidexercise.R
-import jp.speakbuddy.edisonandroidexercise.ui.fact.FactScreen
-import jp.speakbuddy.edisonandroidexercise.ui.history.FactHistoryScreen
-import jp.speakbuddy.edisonandroidexercise.ui.search.SearchScreen
+import jp.speakbuddy.edisonandroidexercise.fact.FactScreen
+import jp.speakbuddy.edisonandroidexercise.history.FactHistoryScreen
+import jp.speakbuddy.edisonandroidexercise.search.SearchScreen
 
 @Composable
 fun MainNavigation(
@@ -23,11 +23,11 @@ fun MainNavigation(
     val historyIcon = ImageVector.vectorResource(id = R.drawable.ic_history)
     NavHost(
         navController,
-        startDestination = NavigationItem.Home.route,
+        startDestination = ScreenModel.NavigationItem.Home.route,
         modifier.padding(contentPadding)
     ) {
-        composable(NavigationItem.Home.route) { FactScreen() }
-        composable(NavigationItem.History(historyIcon).route) { FactHistoryScreen() }
-        composable(NavigationItem.Search.route) { SearchScreen() }
+        composable(ScreenModel.NavigationItem.Home.route) { FactScreen() }
+        composable(ScreenModel.NavigationItem.History(historyIcon).route) { FactHistoryScreen() }
+        composable(ScreenModel.NavigationItem.Search.route) { SearchScreen() }
     }
 }

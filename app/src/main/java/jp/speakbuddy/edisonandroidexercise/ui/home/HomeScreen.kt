@@ -22,11 +22,17 @@ fun HomeScreen() {
     val historyIcon = ImageVector.vectorResource(id = R.drawable.ic_history)
 
     val title = when (currentRoute) {
-        NavigationItem.Home.route -> stringResource(id = R.string.home)
-        NavigationItem.History(historyIcon).route -> stringResource(id = R.string.history)
-        NavigationItem.Search.route -> stringResource(id = R.string.search)
+        ScreenModel.NavigationItem.Home.route -> stringResource(id = R.string.home)
+        ScreenModel.NavigationItem.History(historyIcon).route -> stringResource(id = R.string.history)
+        ScreenModel.NavigationItem.Search.route -> stringResource(id = R.string.search)
         else -> stringResource(id = R.string.app_name)
     }
+
+    val screensInHomeFromBottomNav = listOf(
+        ScreenModel.NavigationItem.Home,
+        ScreenModel.NavigationItem.History(historyIcon),
+        ScreenModel.NavigationItem.Search
+    )
 
     Scaffold(
         topBar = {
@@ -35,7 +41,7 @@ fun HomeScreen() {
             )
         },
         bottomBar = {
-            BottomNavigationBar(navController = navController)
+            BottomNavigationBar(screens = screensInHomeFromBottomNav, navController = navController)
         }
     ) { innerPadding ->
         MainNavigation(

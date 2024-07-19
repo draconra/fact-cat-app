@@ -16,32 +16,28 @@ retrofitConverter = "1.0.0"
 okhttp = "4.12.0"
 retrofit = "2.11.0"
 junit = "4.13.2"
-espresso = "3.6.1"
 junitExt = "1.2.1"
 coreKtx = "1.13.1"
 lifecycleRuntime = "2.8.3"
-liveDataRuntime = "1.6.8"
 activityCompose = "1.9.0"
 serializationJson = "1.5.1"
 mockk = "1.13.12"
 junitJupiter = "5.10.3"
 coroutinesTest = "1.8.1"
-junitVintage = "5.10.3"
-robolectric = "4.13"
 core = "1.44.0"
 navigationCompose = "2.7.7"
 lottie = "6.4.1"
 chucker = "4.0.0"
 googleService = "4.4.2"
 firebase-bom = "33.1.2"
-androidJUnit5 = "1.4.0"
+appcompat = "1.6.1"
+material = "1.10.0"
 
 # Library dependencies
 [libraries]
 # Core and Kotlin
 coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 lifecycleRuntime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntime" }
-liveDataRuntime = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "liveDataRuntime" }
 core = { group = "com.google.ar", name = "core", version.ref = "core" }
 
 # Compose and UI
@@ -67,21 +63,13 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 # Testing
 junit = { module = "junit:junit", version.ref = "junit" }
 junitExt = { module = "androidx.test.ext:junit", version.ref = "junitExt" }
-espressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
 composeUiTestJunit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "composeUi" }
-composeUiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "composeUi" }
 composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "composeUi" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 mockkAndroid = { module = "io.mockk:mockk-android", version.ref = "mockk" }
 junitJupiterApi = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
-junitJupiterEngine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiter" }
 coreTesting = { module = "android.arch.core:core-testing", version.ref = "datastore" }
 coroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTest" }
-junitVintage = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "junitVintage" }
-robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
-androidJUnit5 = { module = "de.mannodermaus.junit5:android-test-core", version.ref = "androidJUnit5" }
-androidJUnit5Runner = { module = "de.mannodermaus.junit5:android-test-runner", version.ref = "androidJUnit5" }
-hiltAndroidTesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
 
 # Dependency Injection
 hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
@@ -98,6 +86,8 @@ chuckerNoOp = { module = "com.github.chuckerteam.chucker:library-no-op", version
 # Firebase
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+google-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 # Plugins
 [plugins]
