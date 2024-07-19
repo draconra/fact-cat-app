@@ -1,0 +1,23 @@
+name-template: 'v$NEXT_PATCH_VERSION 🌟'
+tag-template: 'v$NEXT_PATCH_VERSION'
+categories:
+  - title: '🚀 Features'
+    labels:
+      - 'feature'
+  - title: '🐛 Bug Fixes'
+    labels:
+      - 'bug'
+  - title: '📦 Chore'
+    labels:
+      - 'chore'
+  - title: '📝 Documentation'
+    labels:
+      - 'documentation'
+template: |
+  ## What's Changed
+  $CHANGES
+change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+version-resolver: |
+  ${
+    return semver.inc(previousVersion, 'patch')
+  }
