@@ -1,6 +1,6 @@
 # Kotlin and Android Gradle Plugin versions
 [versions]
-kotlin = "1.9.24"
+kotlin = "1.9.25"
 agp = "8.5.1"
 protobufPlugin = "0.9.4"
 composeCompiler = "1.5.14"
