@@ -103,7 +103,7 @@ jobs:
 
       - name: Install GitHub CLI
         run: |
-          brew install gh
+          sudo apt install gh
 
       - name: Authenticate GitHub CLI
         run: |
