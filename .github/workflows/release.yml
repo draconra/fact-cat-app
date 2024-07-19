@@ -38,22 +38,28 @@ jobs:
           ref: ${{ steps.base-branch.outputs.value }}
           fetch-depth: 0
 
-      - name: Setup Java 17
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
+          distribution: 'temurin'
           java-version: '17'
+          java-package: 'jdk'
+          check-latest: false
+          server-id: github
+          server-username: ${{ github.actor }}
+          server-password: ${{ secrets.GIT_TOKEN }}
+          overwrite-settings: true
 
       - uses: fwilhe2/setup-kotlin@main
         name: Setup Kotlin 1.9.22
         with:
           version: 1.9.22
 
-#      - name: Extract Version Code and Version Name
-#        run: kotlin scripts/extract-version-code-and-name.main.kts
-#
-#      - name: Set Version Code and Version Name to Env
-#        run: kotlin scripts/parse-and-set-version-env.main.kts
+      #      - name: Extract Version Code and Version Name
+      #        run: kotlin scripts/extract-version-code-and-name.main.kts
+      #
+      #      - name: Set Version Code and Version Name to Env
+      #        run: kotlin scripts/parse-and-set-version-env.main.kts
 
       - uses: haya14busa/action-cond@v1
         id: title-label
@@ -72,7 +78,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
         with:
-          fromTag:  ${{ steps.latest-tag.outputs.tag }}
+          fromTag: ${{ steps.latest-tag.outputs.tag }}
           toTag: ${{ github.sha }}
           configurationJson: |
             {
