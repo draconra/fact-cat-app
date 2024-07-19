@@ -46,6 +46,11 @@ jobs:
             echo "target_branch=main" >> $GITHUB_ENV
           fi
 
+      - name: Fetch branches
+        run: |
+          git fetch origin ${{ github.event.inputs.source_branch }}:$GITHUB_REF_NAME
+          git fetch origin ${{ env.target_branch }}:$GITHUB_REF_NAME
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
