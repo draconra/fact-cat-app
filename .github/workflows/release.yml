@@ -46,7 +46,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           source: ${{ github.event.inputs.source_branch }}
           target: ${{ env.target_branch }}
-          title:
-            ${{ github.event.inputs.release_type }} Release: ${{ github.sha }}
+          title: '${{ github.event.inputs.release_type }} Release: ${{ github.sha }}'
           body: 'This PR is created by GitHub Actions for ${{ github.event.inputs.release_type }} release.'
           labels: ${{ github.event.inputs.release_type }}
