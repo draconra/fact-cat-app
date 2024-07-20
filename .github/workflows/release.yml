@@ -39,15 +39,16 @@ jobs:
           fetch-depth: 0
 
       - name: Get Android version
-        id: version_app
+        id: version-app
         uses: ltDino/android-get-version-action@v1.0
         with:
           gradlePath: app/build.gradle.kts
 
-      - name: Get the output
+      - name: Set environment variables
+        id: set-env
         run: |
-          echo "The versionCode was ${{ steps.test.outputs.versionCode }}"
-          echo "The versionName was ${{ steps.test.outputs.versionName }}"
+          echo "VERSION_CODE=${{ steps.version-app.outputs.versionCode }}" >> $GITHUB_ENV
+          echo "VERSION_NAME=${{ steps.version-app.outputs.versionName }}" >> $GITHUB_ENV
 
       - uses: haya14busa/action-cond@v1
         id: title-label
