@@ -52,7 +52,7 @@ jobs:
       - name: Run shell script to extract version info
         id: extract_version
         run: |
-          ./scripts/extract-version.sh > version_info.txt
+          scripts/extract-version.sh > version_info.txt
           cat version_info.txt
 
       - name: Set environment variables
