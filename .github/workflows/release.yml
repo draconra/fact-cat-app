@@ -30,7 +30,7 @@ jobs:
         with:
           cond: ${{ inputs.releaseType == 'Alpha' }}
           if_true: "develop"
-          if_false: "master"
+          if_false: "main"
 
       - uses: actions/checkout@v4
         name: Checking out repository
