@@ -49,11 +49,11 @@ jobs:
         with:
           version: 1.9.22
 
-#      - name: Extract Version Code and Version Name
-#        run: kotlin scripts/extract-version-code-and-name.main.kts
-#
-#      - name: Set Version Code and Version Name to Env
-#        run: kotlin scripts/parse-and-set-version-env.main.kts
+      - name: Extract Version Code and Version Name
+        run: kotlin scripts/extract-version-code-and-name.main.kts
+
+      - name: Set Version Code and Version Name to Env
+        run: kotlin scripts/parse-and-set-version-env.main.kts
 
       - uses: haya14busa/action-cond@v1
         id: title-label
