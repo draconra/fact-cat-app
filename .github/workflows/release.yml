@@ -49,11 +49,24 @@ jobs:
         with:
           version: 1.9.22
 
-      - name: Extract Version Code and Version Name
-        run: kotlin scripts/extract-version-code-and-name.main.kts
+      - name: Run shell script to extract version info
+        id: extract_version
+        run: |
+          ./scripts/extract-version.sh > version_info.txt
+          cat version_info.txt
 
-      - name: Set Version Code and Version Name to Env
-        run: kotlin scripts/parse-and-set-version-env.main.kts
+      - name: Set environment variables
+        id: set_env
+        run: |
+          VERSION_CODE=$(grep "VERSION_CODE" version_info.txt | cut -d'=' -f2)
+          VERSION_NAME=$(grep "VERSION_NAME" version_info.txt | cut -d'=' -f2)
+          echo "VERSION_CODE=${VERSION_CODE}" >> $GITHUB_ENV
+          echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_ENV
+
+      - name: Print version info
+        run: |
+          echo "Version Code: $VERSION_CODE"
+          echo "Version Name: $VERSION_NAME"
 
       - uses: haya14busa/action-cond@v1
         id: title-label
@@ -72,7 +85,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
         with:
-          fromTag:  ${{ steps.latest-tag.outputs.tag }}
+          fromTag: ${{ steps.latest-tag.outputs.tag }}
           toTag: ${{ github.sha }}
           configurationJson: |
             {
