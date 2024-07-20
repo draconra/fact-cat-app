@@ -5,7 +5,7 @@
 import okio.FileSystem
 import okio.Path.Companion.toPath
 
-val appBuildGradlePath: okio.Path = "MobileUI/build.gradle.kts".toPath()
+val appBuildGradlePath: okio.Path = "app/build.gradle.kts".toPath()
 val fileSystem = FileSystem.SYSTEM
 
 var versionCode = ""
