@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="multiple_cats">Multiple cats!</string>
+    <string name="close">Close</string>
+    <string name="update_fact">Update fact</string>
+    <string name="fact">Fact</string>
+    <string name="no_fact_available">No fact available</string>
+    <string name="no_facts_available">No facts available</string>
+</resources>

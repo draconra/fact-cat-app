@@ -2,9 +2,11 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.googleService)
     kotlin("kapt")
     alias(libs.plugins.hilt)
     alias(libs.plugins.protobuf)
+    alias(libs.plugins.crashlytics)
 }
 
 android {
@@ -27,12 +29,18 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
         debug {
             isMinifyEnabled = false
             isDebuggable = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -52,67 +60,38 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-}
-
-// Setup protobuf configuration, generating lite Java and Kotlin classes
-protobuf {
-    protoc {
-        artifact = "com.google.protobuf:protoc:22.0"
-    }
-    generateProtoTasks {
-        all().forEach { task ->
-            task.builtins {
-                val java by registering {
-                    option("lite")
-                }
-                val kotlin by registering {
-                    option("lite")
-                }
-            }
+            excludes += "META-INF/LICENSE-notice.md"
+            excludes += "META-INF/LICENSE.md"
         }
     }
 }
 
 dependencies {
+    //Module
+    implementation(project(":Fact"))
+    implementation(project(":History"))
+    implementation(project(":Search"))
+    implementation(project(":Core-Network"))
+    implementation(project(":Core-UI"))
+
+    // Core and Kotlin
     implementation(libs.coreKtx)
     implementation(libs.lifecycleRuntime)
-    implementation(libs.liveDataRuntime)
+
+    // Compose and UI
     implementation(libs.activityCompose)
     implementation(libs.composeUi)
     implementation(libs.composeUiToolingPreview)
     implementation(libs.material3)
-    implementation(libs.datastorePreferences)
-    implementation(libs.datastore)
+    implementation(libs.material)
+    implementation(libs.navigationCompose)
+
+    // Dependency Injection
     implementation(libs.hiltAndroid)
-    implementation(libs.core)
+    implementation(libs.hiltNavigation)
     kapt(libs.hiltAndroidCompiler)
-    implementation(libs.protobufKotlinLite)
-    implementation(libs.kotlinxSerializationJson)
-    implementation(libs.retrofitConverter)
-    implementation(libs.okhttp)
-    implementation(libs.retrofit)
-    testImplementation(libs.junit)
-    testImplementation(libs.junitJupiterApi)
-    testImplementation(libs.mockk)
-    testRuntimeOnly(libs.junitJupiterEngine)
-    androidTestImplementation(libs.junitExt)
-    androidTestImplementation(libs.espressoCore)
-    androidTestImplementation(libs.composeUiTestJunit4)
-    androidTestImplementation(libs.coreTesting)
-    testImplementation(libs.robolectric)
-    testImplementation(libs.coreTesting)
-    testImplementation(libs.coroutinesTest)
-    testRuntimeOnly(libs.junitVintage)
-    debugImplementation(libs.composeUiTooling)
-    debugImplementation(libs.composeUiTestManifest)
-}
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
-kapt {
-    correctErrorTypes = true
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.crashlytics)
 }
