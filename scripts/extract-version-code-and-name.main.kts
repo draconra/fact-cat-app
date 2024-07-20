@@ -1,4 +1,3 @@
-#!/usr/bin/env kotlin
 @file:CompilerOptions("-Xopt-in=kotlin.RequiresOptIn")
 @file:DependsOn("com.squareup.okio:okio-jvm:3.9.0")
 
