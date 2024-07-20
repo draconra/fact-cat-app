@@ -39,7 +39,7 @@ jobs:
           fetch-depth: 0
 
       - name: Expose Android version code and name
-        uses: michpohl/expose-android-build.gradle-version-code-and-name@v1.0.0
+        uses: michpohl/expose-android-build.gradle-version-code-and-name@v1.1.0
         with:
           path: 'app/build.gradle.kts'
           expose-version-name: 'true'
