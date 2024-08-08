@@ -6,7 +6,7 @@ protobufPlugin = "0.9.4"
 composeCompiler = "1.5.14"
 
 # Dependency versions
-hilt = "2.51.1"
+hilt = "2.52"
 hiltNavigation = "1.2.0"
 protobuf = "4.27.2"
 composeUi = "1.6.8"
