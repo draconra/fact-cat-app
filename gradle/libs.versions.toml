@@ -8,7 +8,7 @@ composeCompiler = "1.5.14"
 # Dependency versions
 hilt = "2.52"
 hiltNavigation = "1.2.0"
-protobuf = "4.27.2"
+protobuf = "4.28.3"
 composeUi = "1.6.8"
 material3 = "1.2.1"
 datastore = "1.1.1"
