@@ -2,7 +2,7 @@
 [versions]
 kotlin = "1.9.24"
 agp = "8.5.1"
-protobufPlugin = "0.9.4"
+protobufPlugin = "0.10.0"
 composeCompiler = "1.5.14"
 
 # Dependency versions
